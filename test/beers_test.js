@@ -7,23 +7,22 @@ chai.use(chaiHttp);
 process.env.MONGOLAB_URI = 'mongodb://localhost/beer_test';
 require(__dirname + '/../server.js');
 
-describe('beer_routes', function(){
-  before(function(done){
-  this.beerData = {name: 'test beer',brewery:'some brewery', style: 'cheap beer', notes: 'are you sure this is even beer?'};
-  done();
+describe('beer_routes', function() {
+  before(function(done) {
+    this.beerData = {name: 'test beer', brewery: 'some brewery', style: 'cheap beer', notes: 'are you sure this is even beer?'};
+    done();
   });
-  after(function(done){
-    mongoose.connection.db.dropDatabase(function(){
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
       done();
     });
   });
 
-
-  it('should GET you a menu of all the beers at a particular brewery', function(done){
+  it('should GET you a menu of all the beers at a particular brewery', function(done) {
     chai.request('localhost:3000')
     .get('/api/beers/some brewery')
     .send(this.beerData)
-    .end(function(err, res){
+    .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.status).to.eql(200);
       expect(Array.isArray(res.body)).to.eql(true);
@@ -31,12 +30,12 @@ describe('beer_routes', function(){
     });
   });
 
-  it('should be able to brew (create aka POST) a beer', function(done){
+  it('should be able to brew (create aka POST) a beer', function(done) {
 
     chai.request('localhost:3000')
     .post('/api/beers')
     .send(this.beerData)
-    .end(function(err, res){
+    .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.body.name).to.eql('test beer');
       expect(res.body.brewery).to.eql('some brewery');
@@ -47,40 +46,40 @@ describe('beer_routes', function(){
     });
   });
 
-  it('should be able to purchase (GET) all the beers', function(done){
+  it('should be able to purchase (GET) all the beers', function(done) {
     chai.request('localhost:3000')
     .get('/api/beers')
-    .end(function(err, res){
+    .end(function(err, res) {
       expect(err).to.eql(null);
       expect(Array.isArray(res.body)).to.eql(true); // mongo sends arrays back so if it is an array then it presumably came from mongo
       done();
     });
   });
 
-  describe('when you taste some beers you', function(){
-    beforeEach(function(done){
-      (new Beer({name: 'test beer', style: 'malt liquor', notes: 'it comes in a 40 so you\'ll feel guilty about dumping so much out... but you will anyway'})).save(function(err, data){
+  describe('when you taste some beers you', function() {
+    beforeEach(function(done) {
+      (new Beer({name: 'test beer', style: 'malt liquor', notes: 'it comes in a 40 so you\'ll feel guilty about dumping so much out... but you will anyway'})).save(function(err, data) {
         expect(err).to.eql(null);
         this.beer = data;
         done();
       }.bind(this));
     });
 
-    it('should be able to drink a beer and modify (PUT) the info noted about it', function(done){
+    it('should be able to drink a beer and modify (PUT) the info noted about it', function(done) {
       chai.request('localhost:3000')
       .put('/api/beers/' + this.beer._id)
       .send({name: 'garbage', style: 'not even beer, really'})
-      .end(function(err, res){
+      .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.msg).to.eql('updated!');
         done();
       });
     });
 
-    it('should be able to pour out (DELETE) crappy beer as needed', function(done){
+    it('should be able to pour out (DELETE) crappy beer as needed', function(done) {
       chai.request('localhost:3000')
       .delete('/api/beers/' + this.beer._id)
-      .end(function(err, res){
+      .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.msg).to.eql('deleted!');
         done();
@@ -89,14 +88,14 @@ describe('beer_routes', function(){
   });
 });
 
-describe('non_api_routes', function(){
-  it('should display a the name speicified in the route in CAPS and send back that they like beer', function(){
+describe('non_api_routes', function() {
+  it('should display a the name speicified in the route in CAPS and send back that they like beer', function() {
     chai.request('localhost:3000')
     .get('/jim')
-    .end(function(err, res){
+    .end(function(err, res) {
       expect(err).to.eql(null);
       expect(res.status).to.eql(200);
-      expect(res.text).to.eql("My name is JIM and I like me some beer.");
+      expect(res.text).to.eql('My name is JIM and I like me some beer.');
     });
   });
 });

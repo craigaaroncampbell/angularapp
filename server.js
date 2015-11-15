@@ -12,6 +12,6 @@ app.use('/' , nonAPIRouter);
 
 app.use('/api', beersRouter);
 
-app.listen(port, function(){
+app.listen(port, function() {
   console.log('now pouring beer on port: ' + port);
 });
