@@ -1,0 +1,38 @@
+{
+  "name": "craig_campbell with authentication",
+  "version": "0.1.0",
+  "description": "mongo rest api with authentication",
+  "main": "server.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craigaaroncampbell/authentication.git"
+  },
+  "keywords": [
+    "mongo",
+    "rest",
+    "api"
+  ],
+  "author": "craigaaroncampbell@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/craigaaroncampbell/authentication/issues"
+  },
+  "homepage": "https://github.com/craigaaroncampbell/authentication#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.5"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-http": "^1.0.0",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.12.0",
+    "gulp-mocha": "^2.1.3",
+    "jshint-stylish": "^2.0.1",
+    "mocha": "^2.3.3"
+  }
+}
