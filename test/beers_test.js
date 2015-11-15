@@ -80,7 +80,6 @@ describe('beer_routes', function(){
     it('should be able to pour out (DELETE) crappy beer as needed', function(done){
       chai.request('localhost:3000')
       .delete('/api/beers/' + this.beer._id)
-      .send({name: 'bad'})
       .end(function(err, res){
         expect(err).to.eql(null);
         expect(res.body.msg).to.eql('deleted!');

@@ -21,7 +21,6 @@ beersRouter.post('/beers', bodyParser.json(), function(req, res){
 });
 
 beersRouter.put('/beers/:id', bodyParser.json(), function(req, res){
-  console.log(req.body);
   var beerData = req.body;
   delete beerData._id;
   Beer.update({_id: req.params.id}, beerData, function(err){
