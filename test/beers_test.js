@@ -3,15 +3,34 @@ var chaiHttp = require('chai-http');
 var mongoose = require('mongoose');
 var expect = chai.expect;
 var Beer = require(__dirname + '/../models/beer.js');
+var User = require(__dirname + '/../models/user.js');
 chai.use(chaiHttp);
 process.env.MONGOLAB_URI = 'mongodb://localhost/beer_test';
 require(__dirname + '/../server.js');
 
 describe('beer_routes', function() {
-  before(function(done) {
-    this.beerData = {name: 'test beer', brewery: 'some brewery', style: 'cheap beer', notes: 'are you sure this is even beer?'};
+  beforeEach(function(done) {
+    this.beerData = {name: 'test beer', brewery: 'some brewery', style: 'cheap beer', notes: 'are you sure this is even beer?', token: this.token};
     done();
   });
+
+  before(function(done) {
+    var user = new User();
+    user.username = 'testusername';
+    user.basic.username = 'testusername';
+    user.generateHash('testpassword', function(err, res) {
+      if (err) throw err;
+      user.save(function(err, data) {
+        if (err) throw err;
+        user.generateToken(function(err, token) {
+          if (err) throw err;
+          this.token = token;
+        }.bind(this));
+        done();
+      }.bind(this)); //maybe not need, but bind= this anyway
+    }.bind(this));
+  });
+
   after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
@@ -56,9 +75,9 @@ describe('beer_routes', function() {
     });
   });
 
-  describe('when you taste some beers you', function() {
+  describe('when you taste some beers you need one to be there first and', function() {
     beforeEach(function(done) {
-      (new Beer({name: 'test beer', style: 'malt liquor', notes: 'it comes in a 40 so you\'ll feel guilty about dumping so much out... but you will anyway'})).save(function(err, data) {
+      (new Beer({name: 'test beer', style: 'malt liquor', notes: 'it comes in a 40 so you\'ll feel guilty about dumping so much out... but you will anyway', token: this.token})).save(function(err, data) {
         expect(err).to.eql(null);
         this.beer = data;
         done();
@@ -68,7 +87,7 @@ describe('beer_routes', function() {
     it('should be able to drink a beer and modify (PUT) the info noted about it', function(done) {
       chai.request('localhost:3000')
       .put('/api/beers/' + this.beer._id)
-      .send({name: 'garbage', style: 'not even beer, really'})
+      .send({name: 'garbage', style: 'not even beer, really', token: this.token})
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.msg).to.eql('updated!');
@@ -79,6 +98,7 @@ describe('beer_routes', function() {
     it('should be able to pour out (DELETE) crappy beer as needed', function(done) {
       chai.request('localhost:3000')
       .delete('/api/beers/' + this.beer._id)
+      .set('token', this.token) // why does it work WITHOUT this line????
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.msg).to.eql('deleted!');
