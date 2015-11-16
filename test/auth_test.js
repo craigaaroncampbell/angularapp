@@ -57,7 +57,7 @@ describe('auth', function() {
             this.token = token;
             done();
           }.bind(this));
-        }.bind(this)); //maybe not need, but bind= this anyway
+        }.bind(this));
       }.bind(this));
     });
 
