@@ -1,4 +1,4 @@
-https://travis-ci.org/craigaaroncampbell/authentication.svg?branch=travis
+[![Build Status](https://travis-ci.org/craigaaroncampbell/authentication.svg?branch=master)](https://travis-ci.org/craigaaroncampbell/authentication)
 
 Note on authentication:  in order to do any CRUD on beers, you need to first singup or signin to get a token. This token must be sent with crud requests in order to add or modify beers.
 
