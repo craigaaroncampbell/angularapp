@@ -1,3 +1,17 @@
+Note on authentication:  in order to do any CRUD on beers, you need to first singup or signin to get a token. This token must be sent with crud requests in order to add or modify beers.
+
+To sign up, use supearagent-cli.
+```superagent localhost:3000/api/signup post '{"username":"yourname","password":"yourpassword"}' ``''
+This sends back a token. YOU WILL NEED THIS FOR REST requests.
+
+To sign in (if you already signed up, use supearagent-cli.
+```superagent localhost:3000/api/signin  -u YourUserName:YourPassword```
+This sends back your token.
+
+
+ To make REST requests, you need the token from signup or signin. For example, to create a new beer:
+``` superagent localhost:3000/api/beers post '{"name":"theBeerYouWantToAdd","brewery":"theNameOfTheBrewery","token":"YourTokenFromLogin"}' ```
+
 Note: mongod must be running in order for this app to work! In one terminal, use ```mongod --dbpath=./db --smallfiles```  where db is the name of a directory in your app's root directory.  This is essential as it starts mongo and tells it where to store/reteive/edit/delete data from.
 
 This app stores user posts of differnt beers in a mongo database. This is done by making a POST request to ```/api/beers```. For example, using Superagent-CLI: ```superagent localhost:3000/api/beers post '{"name":"Leafer Madness","brewery":"Beer Valley","style":"double IPA","notes":"very tasty"}'```
