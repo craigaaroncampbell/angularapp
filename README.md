@@ -1,3 +1,5 @@
+https://travis-ci.org/craigaaroncampbell/authentication.svg?branch=travis
+
 Note on authentication:  in order to do any CRUD on beers, you need to first singup or signin to get a token. This token must be sent with crud requests in order to add or modify beers.
 
 To sign up, use supearagent-cli.
