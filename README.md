@@ -1,10 +1,10 @@
 Note on authentication:  in order to do any CRUD on beers, you need to first singup or signin to get a token. This token must be sent with crud requests in order to add or modify beers.
 
 To sign up, use supearagent-cli.
-```superagent localhost:3000/api/signup post '{"username":"yourname","password":"yourpassword"}' ``''
-This sends back a token. YOU WILL NEED THIS FOR REST requests.
+```superagent localhost:3000/api/signup post '{"username":"yourname","password":"yourpassword"}' ```
+This sends back a token. You will need this for REST requests.
 
-To sign in (if you already signed up, use supearagent-cli.
+To sign in (if you already signed up), use supearagent-cli.
 ```superagent localhost:3000/api/signin  -u YourUserName:YourPassword```
 This sends back your token.
 
