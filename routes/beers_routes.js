@@ -25,7 +25,6 @@ beersRouter.put('/beers/:id', bodyParser.json(), eatAuth, function(req, res) {
   delete beerData._id;
   Beer.update({_id: req.params.id}, beerData, function(err) {
     if (err) return handleError(err, res);
-    console.log(req.body);
     res.send({msg: 'updated!'});
   });
 });
@@ -43,6 +42,5 @@ beersRouter.get('/beers/:brewery', function(req, res) {
     if (err) return handleError(err, res);
     res.send(data);
   });
-
 });
 
