@@ -63,7 +63,7 @@ describe('auth', function() {
 
     it('should be able to sign in', function(done) {
       chai.request('localhost:3000/api')
-      .get('/signin') // MAKE THIS SIGNIN FOR MY APP!
+      .get('/signin')
       .auth('testusername', 'testpassword')
       .end(function(err, res) {
         expect(err).to.eql(null);
