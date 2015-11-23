@@ -4,14 +4,22 @@ var bodyParser = require('body-parser');
 var User = require(__dirname + '/../models/user.js');
 var handleError = require(__dirname + '/../lib/handleErrors.js');
 var httpBasic = require(__dirname + '/../lib/http_basic.js');
+
 var EE = require('events').EventEmitter;
 var postEmitter = new EE();
 var getEmitter = new EE();
 
-usersRouter.post('/signin', bodyParser.json(), function(req, res) {
-  User.find({'username': req.body.username}, function(err, data) {
+usersRouter.get('/users', function(req, res) {
+  User.find({}, function(err, data) {
+    if (err) handleError(err, res);
+    res.send(data);
+  });
+});
+
+usersRouter.post('/signup', bodyParser.json(), function(req, res) {
+  User.findOne({'username': req.body.username}, function(err, data) {
     if (err) return handleError(err, res);
-    if (data[0] && data[0].basic.username === req.body.username) {
+    if (data && data.basic.username === req.body.username) {
       return console.log('THAT USER IS ALREADY IN THE DATABASE'); // prevent newUser emission if the username is already in the db. NOTHING FURTHER SHOULD HAPPEN WITH THIS REQUEST.
     }
     postEmitter.emit('newUser', req, res); //only if user not in db aleady
