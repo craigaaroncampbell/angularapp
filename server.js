@@ -19,6 +19,10 @@ app.use('/api', beersRouter);
 
 app.use('/api', usersRouter);
 
+app.use(function(req, res) {
+	res.status(404).send('could not find file');
+});
+
 app.listen(port, function() {
   console.log('now pouring beer on port: ' + port);
 

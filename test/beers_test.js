@@ -108,15 +108,15 @@ describe('beer_routes', function() {
   });
 });
 
-describe('non_api_routes', function() {
-  it('should display a the name speicified in the route in CAPS and send back that they like beer', function() {
-    chai.request('localhost:3000')
-    .get('/jim')
-    .end(function(err, res) {
-      expect(err).to.eql(null);
-      expect(res.status).to.eql(200);
-      expect(res.text).to.eql('My name is JIM and I like me some beer.');
-    });
-  });
-});
+// describe('non_api_routes', function() {
+//   it('should display a the name speicified in the route in CAPS and send back that they like beer', function() {
+//     chai.request('localhost:3000')
+//     .get('/jim')
+//     .end(function(err, res) {
+//       expect(err).to.eql(null);
+//       expect(res.status).to.eql(200);
+//       expect(res.text).to.eql('My name is JIM and I like me some beer.');
+//     });
+//   });
+// });
 
