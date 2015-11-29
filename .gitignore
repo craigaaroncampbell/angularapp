@@ -9,3 +9,4 @@ local.0
 authentication_dev.0
 authentication_dev.ns
 storage.bson
+.DS_Store
