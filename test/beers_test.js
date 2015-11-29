@@ -27,7 +27,7 @@ describe('beer_routes', function() {
           this.token = token;
         }.bind(this));
         done();
-      }.bind(this)); //maybe not need, but bind= this anyway
+      }.bind(this));
     }.bind(this));
   });
 
