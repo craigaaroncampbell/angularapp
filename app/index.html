@@ -10,13 +10,13 @@
 		<h1> Beer App </h1>
 		<form name="newBeerForm" data-ng-submit="createBeer(newBeer)">
 			<label for="beerName">New Beer Name:</label>
-			<input type="text" id="beerName"required="required" data-ng-model="newBeer.name">
+			<input type="text" placeholder="name" id="beerName"required="required" data-ng-model="newBeer.name">
 			<label for="beerBrewery">Brewery:</label>
-			<input type="text" id="beerBrewery" data-ng-model="newBeer.brewery">
+			<input type="text" placeholder="brewery" id="beerBrewery" data-ng-model="newBeer.brewery">
 			<label for="beerStyle">Style:</label>
-			<input type="text" id="beerStyle" data-ng-model="newBeer.style">
+			<input type="text" placeholder="style" id="beerStyle" data-ng-model="newBeer.style">
 			<label for="beerNotes">Notes:</label>
-			<input type="text" id="beerNotes" data-ng-model="newBeer.notes">
+			<input type="text" placeholder="tasting notes" id="beerNotes" data-ng-model="newBeer.notes">
 		<button type="submit" data-ng-disabled="newBeerForm.$invalid">Create New beer</button>
 		</form>
 		<ul id="beerlist">
