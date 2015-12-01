@@ -1,6 +1,7 @@
 module.exports = function(app) {
 	app.controller('BeersController', ['$scope', '$http', function($scope, $http) {
 		$scope.beers = [];
+		$scope.newbeer =  null;
 		$scope.original = {};
 
 		$scope.getAll = function() {
