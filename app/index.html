@@ -2,14 +2,45 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>About This App</title>
+	<title>List You Some Beers</title>
 </head>
-<body data-ng-app="beerstream">
-	<main data-ng-controller="GreetingController">
-		<h1>This app should do the following:</h1>
-		<h2>{{greeting}}</h2>
-		<input type="text" data-ng-model="greeting">
+<body data-ng-app="beerApp">
+	<h1>Beers Everywhere</h1>
+	<main data-ng-controller="BeersController" data-ng-init="getAll()">
+		<h1> Beer App </h1>
+		<form name="newBeerForm" data-ng-submit="createBeer(newBeer)">
+			<label for="beerName"></label>New Beer Name:
+			<input type="text" required="required" data-ng-model="newBeer.name">
+			<label for="beerBrewery"></label>Brewery:
+			<input type="text" data-ng-model="newBeer.brewery">
+			<label for="beerStyle"></label>Style:
+			<input type="text" data-ng-model="newBeer.style">
+			<label for="beerNotes"></label>Notes:
+			<input type="text" data-ng-model="newBeer.notes">
+		<button type="submit" data-ng-disabled="newBeerForm.$invalid">Create New beer</button>
+		</form>
+		<ul id="beerlist">
+			<li data-ng-repeat="beer in beers">
+				<span data-ng-hide="beer.editing">
+					<button data-ng-click="edit(beer)">Edit Beer</button>
+					<button data-ng-click="deleteBeer(beer)">Delete Beer</button>
+				{{beer.name}}
+				{{beer.brewery}}
+				{{beer.style}}
+				{{beer.notes}}
+				</span>
+				<form data-ng-show="beer.editing" name="{{'beerForm' + beer._id}}" data-ng-submit="updateBeer(beer)">
+					<input type="text" data-ng-model="beer.name">
+					<input type="text" data-ng-model="beer.brewery">
+					<input type="text" data-ng-model="beer.style">
+					<input type="text" data-ng-model="beer.notes">
+					<button type="submit">Save Changes</button>
+				</form>
+				<button data-ng-show="beer.editing" data-ng-click="cancel(beer)" >Cancel
+				</button>
+			</li>
+		</ul>
 	</main>
-	<script src="bundle.js"></script>
 </body>
+<script src="/bundle.js"></script>
 </html>

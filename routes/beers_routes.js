@@ -12,7 +12,7 @@ beersRouter.get('/beers', function(req, res) {
   });
 });
 
-beersRouter.post('/beers', bodyParser.json(), eatAuth, function(req, res) {
+beersRouter.post('/beers', bodyParser.json(), /* eatAuth, */ function(req, res) {
   var newBeer = new Beer(req.body);
   newBeer.save(function(err, data) {
     if (err) handleError(err, res);
@@ -20,7 +20,7 @@ beersRouter.post('/beers', bodyParser.json(), eatAuth, function(req, res) {
   });
 });
 
-beersRouter.put('/beers/:id', bodyParser.json(), eatAuth, function(req, res) {
+beersRouter.put('/beers/:id', bodyParser.json(), /* eatAuth, */ function(req, res) {
   var beerData = req.body;
   delete beerData._id;
   Beer.update({_id: req.params.id}, beerData, function(err) {
@@ -29,7 +29,7 @@ beersRouter.put('/beers/:id', bodyParser.json(), eatAuth, function(req, res) {
   });
 });
 
-beersRouter.delete('/beers/:id', function(req, res) {
+beersRouter.delete('/beers/:id', /* bodyParser.json(), eatAuth, */ function(req, res) {
   Beer.remove({_id: req.params.id}, function(err) {
     if (err) return handleError(err, res);
     res.send({msg: 'deleted!'});

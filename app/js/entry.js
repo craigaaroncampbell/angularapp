@@ -1,8 +1,6 @@
 require('angular/angular');
-var angular = window.angular; //so jshint will stop complaining
+var angular = window.angular;
 
-var bearApp = angular.module('beerstream', [] ); //empty array will hold dependencies for angular
+var beerApp = angular.module('beerApp', [] );
 
-bearApp.controller('GreetingController', ['$scope', function($scope) {
-	$scope.greeting = 'This app allows users to sign in and write a log of the beers he/she has tried. At least it should when it is all done and working.';
-}]);
+require('./beers/beers.js')(beerApp);

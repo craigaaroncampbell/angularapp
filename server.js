@@ -5,7 +5,7 @@ var usersRouter = require(__dirname + '/routes/users_routes.js');
 var nonAPIRouter = require(__dirname + '/routes/non_api_routes.js');
 var port = process.env.PORT || 3000;
 var mongoose = require('mongoose');
-var mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost/authentication_dev';
+var mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost/beer_dev';
 
 var tempAppSecret = 'ThisReallyNeedsToBeChanged';
 
@@ -24,9 +24,9 @@ app.use(function(req, res) {
 });
 
 app.listen(port, function() {
-  console.log('now pouring beer on port: ' + port);
+	console.log('now pouring beer on port: ' + port);
 
-  if (process.env.APP_SECRET === tempAppSecret) {
-    console.log('DUDE, YOU NEED TO CHANGE THE APP SECRET ENV VARIABLE!', process.env.APP_SECRET);
-  }
+	if (process.env.APP_SECRET === tempAppSecret) {
+		console.log('DUDE, YOU NEED TO CHANGE THE APP SECRET ENV VARIABLE!', process.env.APP_SECRET);
+	}
 });
