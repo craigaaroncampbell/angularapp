@@ -3,6 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>List You Some Beers</title>
+	<style>
+		h1 {
+			color: red;
+		}
+
+		td {
+			border: 1px solid green;
+		}
+
+		li {
+			list-style: none;
+		}
+	</style>
 </head>
 <body data-ng-app="beerApp">
 	<h1>Beers Everywhere</h1>
@@ -17,30 +30,41 @@
 			<input type="text" placeholder="style" id="beerStyle" data-ng-model="newBeer.style">
 			<label for="beerNotes">Notes:</label>
 			<input type="text" placeholder="tasting notes" id="beerNotes" data-ng-model="newBeer.notes">
-		<button type="submit" data-ng-disabled="newBeerForm.$invalid">Create New beer</button>
+		<button type="submit" data-ng-disabled="newBeerForm.$invalid">List Another Beer</button>
 		</form>
 		<ul id="beerlist">
 			<li data-ng-repeat="beer in beers">
-				<span data-ng-hide="beer.editing">
-					<button data-ng-click="edit(beer)">Edit Beer</button>
-					<button data-ng-click="deleteBeer(beer)">Delete Beer</button>
-				{{beer.name}}
-				{{beer.brewery}}
-				{{beer.style}}
-				{{beer.notes}}
-				</span>
-				<form data-ng-show="beer.editing" name="{{'beerForm' + beer._id}}" data-ng-submit="updateBeer(beer)">
-					<input type="text" data-ng-model="beer.name">
-					<input type="text" data-ng-model="beer.brewery">
-					<input type="text" data-ng-model="beer.style">
-					<input type="text" data-ng-model="beer.notes">
-					<button type="submit">Save Changes</button>
+				<table>
+					<tr>
+						<th>Beer Name</th>
+						<th>Brewery</th>
+						<th>Style</th>
+						<th>Tasting Notes</th>
+					</tr>
+					<tr>
+						<td>{{beer.name}}</td>
+						<td>{{beer.brewery}}</td>
+						<td>{{beer.style}}</td>
+						<td>{{beer.notes}}</td>
+					</tr>
+				</table>
+					<button data-ng-if="!beer.editing"  data-ng-click="edit(beer)">Edit Beer</button>
+					<button data-ng-if="!beer.editing" data-ng-click="deleteBeer(beer)">Delete Beer</button>
+				<form data-ng-if="beer.editing" name="beerForm{{beer._id}}" data-ng-submit="updateBeer(beer)">
+					<label for="beerName{{beer._id}}"></label>
+					<input type="text" id="beerName{{beer._id}}" data-ng-model="beer.name">
+					<label for="beerBrewery{{beer._id}}"></label>
+					<input type="text" id="beerBrewery{{beer._id}}" data-ng-model="beer.brewery">
+					<label for="beerStyle{{beer._id}}"></label>
+					<input type="text" id="beerStyle{{beer._id}}" data-ng-model="beer.style">
+					<label for="beerNotes{{beer._id}}"></label>
+					<input type="text" id="beerNotes{{beer._id}}" data-ng-model="beer.notes">
+					<button data-ng-if="beer.editing" type="submit">Save Changes</button>
+					<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel
+					</button>
 				</form>
-				<button data-ng-show="beer.editing" data-ng-click="cancel(beer)" >Cancel
-				</button>
 			</li>
 		</ul>
 	</main>
-</body>
-<script src="/bundle.js"></script>
+	<script src="/bundle.js"></script> </body>
 </html>
