@@ -4,6 +4,9 @@ var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var stylish = require('gulp-jscs-stylish');
 var webpack = require('webpack-stream');
+var minifyCss = require('gulp-minify-css');
+var concatCss = require('gulp-concat-css');
+
 
 gulp.task('default', ['lint', 'jscs', 'test', 'build:dev']);
 
@@ -25,7 +28,7 @@ gulp.task('jscs', function() {
 });
 
 gulp.task('static:dev', function() {
-	gulp.src(['app/**/*.html', 'app/**/*.css'])
+	gulp.src(['app/**/*.html'])
 	.pipe(gulp.dest('build/'));  //copy html from app directory to build directory
 });
 
@@ -39,4 +42,19 @@ gulp.task('webpack:dev', function() {
 	.pipe(gulp.dest('build/'));
 });
 
-gulp.task('build:dev', ['webpack:dev', 'static:dev']);
+gulp.task('css:dev', function() {
+	gulp.src([
+		'app/css/base.css',
+		'app/css/layout.css',
+		'app/css/module.css'
+		])
+	.pipe(concatCss('style.min.css'))
+	.pipe(minifyCss())
+	.pipe(gulp.dest('build/'))
+});
+
+gulp.task('css:watch', function() {
+	gulp.watch('./app/css/**/*.css' , ['css:dev'])
+});
+
+gulp.task('build:dev', ['webpack:dev', 'static:dev', 'css:dev']);
