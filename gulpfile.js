@@ -25,7 +25,7 @@ gulp.task('jscs', function() {
 });
 
 gulp.task('static:dev', function() {
-	gulp.src('app/**/*.html')
+	gulp.src(['app/**/*.html', 'app/**/*.css'])
 	.pipe(gulp.dest('build/'));  //copy html from app directory to build directory
 });
 

@@ -15,3 +15,5 @@ nonAPIRouter.get('/:filename', function(req, res, next) {
 		file.pipe(res);
 	});
 });
+
+nonAPIRouter.use(express.static(__dirname + '/../build'));

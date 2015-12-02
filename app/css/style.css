@@ -1,0 +1,11 @@
+h1 {
+	color: red;
+}
+
+td {
+	border: 1px solid green;
+}
+
+.button {
+	border: none;
+}
