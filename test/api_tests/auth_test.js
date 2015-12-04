@@ -3,11 +3,11 @@ var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 var mongoose = require('mongoose');
 var expect = chai.expect;
-var User = require(__dirname + '/../models/user.js');
+var User = require(__dirname + '/../../models/user.js');
 process.env.MONGOLAB_URI = 'mongodb://localhost/beer_test';
-require(__dirname + '/../server.js');
-var eatAuth = require(__dirname + '/../lib/eat_auth.js');
-var httpBasic = require(__dirname + '/../lib/http_basic.js');
+require(__dirname + '/../../server.js');
+var eatAuth = require(__dirname + '/../../lib/eat_auth.js');
+var httpBasic = require(__dirname + '/../../lib/http_basic.js');
 
 describe('http basic', function() {
 	it('shoudl be able to parse http basic authorization', function() {

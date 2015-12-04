@@ -1,7 +1,7 @@
 module.exports = function(app) {
 	app.controller('BeersController', ['$scope', '$http', function($scope, $http) {
 		$scope.beers = [];
-		$scope.newbeer =  null;
+		$scope.newBeer =  null;
 		$scope.original = {};
 
 		$scope.getAll = function() {
@@ -17,7 +17,7 @@ module.exports = function(app) {
 			$http.post('/api/beers', beer)
 			.then(function(res) {
 				$scope.beers.push(res.data);
-				$scope.newbeer =  null;
+				$scope.newBeer =  null;
 				}, function(err) {
 				console.log(err)
 				}

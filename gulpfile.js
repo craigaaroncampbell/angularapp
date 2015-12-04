@@ -6,7 +6,7 @@ var stylish = require('gulp-jscs-stylish');
 var webpack = require('webpack-stream');
 var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
-
+var Karma = require('karma').Server;
 
 gulp.task('default', ['lint', 'jscs', 'test', 'build:dev']);
 
@@ -16,24 +16,19 @@ gulp.task('lint', function() {
 	.pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('test', ['lint'], function() {
-	gulp.src('test/**/*test.js')
-	.pipe(mocha({reporter: 'nyan'}));
-});
-
 gulp.task('jscs', function() {
-	gulp.src(['gulpfile.js', 'server.js', 'models/**/*.js', 'test/**/*test.js', 'lib/**/*.js', 'routes/**/*.js'])
+	gulp.src(['gulpfile.js', 'server.js', 'models/**/*.js', 'test/**/*test.js', 'lib/**/*.js', 'routes/**/*.js', 'app/**/*.js'])
 	.pipe(jscs())
 	.pipe(stylish());
 });
 
 gulp.task('static:dev', function() {
 	gulp.src(['app/**/*.html'])
-	.pipe(gulp.dest('build/'));  //copy html from app directory to build directory
+	.pipe(gulp.dest('build/'));
 });
 
 gulp.task('webpack:dev', function() {
-	gulp.src('app/js/entry.js') //entry.js is the common name, but it can be any name
+	gulp.src('app/js/entry.js')
 	.pipe(webpack({
 		output: {
 			filename: 'bundle.js'
@@ -50,11 +45,34 @@ gulp.task('css:dev', function() {
 		])
 	.pipe(concatCss('style.min.css'))
 	.pipe(minifyCss())
-	.pipe(gulp.dest('build/'))
+	.pipe(gulp.dest('build/'));
 });
 
 gulp.task('css:watch', function() {
-	gulp.watch('./app/css/**/*.css' , ['css:dev'])
+	gulp.watch('./app/css/**/*.css' , ['css:dev']);
+});
+
+gulp.task('webpack:test', function() {
+	return gulp.src('./test/client/test_entry.js')
+		.pipe(webpack({
+			output: {
+				filename: 'test_bundle.js'
+			}
+		}))
+		.pipe(gulp.dest('test/client'));
+});
+
+gulp.task('servertests', function() {
+	gulp.src('./test/api_tests/**/*test.js')
+	.pipe(mocha({reporter: 'nyan'}));
+});
+
+gulp.task('karmatests', ['webpack:test'], function(done) {
+	new Karma({
+		configFile: __dirname + '/karma.conf.js'
+	}, done).start();
 });
 
 gulp.task('build:dev', ['webpack:dev', 'static:dev', 'css:dev']);
+
+gulp.task('test', ['lint', 'servertests', 'karmatests']);

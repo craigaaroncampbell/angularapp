@@ -2,11 +2,11 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var mongoose = require('mongoose');
 var expect = chai.expect;
-var Beer = require(__dirname + '/../models/beer.js');
-var User = require(__dirname + '/../models/user.js');
+var Beer = require(__dirname + '/../../models/beer.js');
+var User = require(__dirname + '/../../models/user.js');
 chai.use(chaiHttp);
 process.env.MONGOLAB_URI = 'mongodb://localhost/beer_test';
-require(__dirname + '/../server.js');
+require(__dirname + '/../../server.js');
 
 describe('beer_routes', function() {
 	beforeEach(function(done) {
