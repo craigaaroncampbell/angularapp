@@ -29240,17 +29240,6 @@
 				})
 			};
 
-			// $scope.update = function(beer) {
-			// 	$http.put('/api/beers/' + beer._id, beer)
-			// 	.then(function(res) {
-			// 		beer.editing = false;
-			// 	}, function(err) {
-			// 		console.log(err);
-			// 		beer.editing = false;
-			// 	});
-			// };
-
-
 		$scope.delete = function(beer) {
 			$scope.beers.splice($scope.beers.indexOf(beer), 1);
 				beersResource.delete(beer, function(err, data) {
@@ -29260,16 +29249,6 @@
 					}
 				})
 			};
-			// $scope.delete = function(beer) { //assync UI
-			// 	$scope.beers.splice($scope.beers.indexOf(beer), 1); // BEFORE the AJAX call
-			// 	$http.delete('/api/beers/' + beer._id)
-			// 	.then(function(res) {
-			// 		//do nothing on success
-			// 	}, function(err) {
-			// 		$scope.getAll();
-			// 		console.log(err);
-			// 	});
-			// };
 
 			$scope.cancel = function(beer) {
 				beer.name = $scope.original.name;
@@ -29343,7 +29322,13 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-
+		app.directive('beerforms', function() {
+			return {
+				templateUrl: 'templates/beerforms.html',
+				controller: "BeersController",
+				replace: true
+			};
+		})
 	};
 
 
