@@ -101,8 +101,7 @@
 				var resdata = {name: 'test beer res', brewery: 'some brewery', style: 'stout', notes: 'none right now'};
 				$httpBackend.expectPOST('/api/beers', sentdata).respond(200, resdata);
 
-
-				$scope.newBeer =  sentdata//this is different than what is "sent back" because there is no server in this test. so we are mocking it, and I chose a differnet response to test that it is CLEARLY pushing what is "sent back" in to the beers "database" array
+				$scope.newBeer =  sentdata;  //this is different than what is "sent back" because there is no server in this test. so we are mocking it, and I chose a differnet response to test that it is CLEARLY pushing what is "sent back" in to the beers "database" array
 
 				expect($scope.beers.length).toBe(0);
 				// expect($scope.newBear).toEqual($scope.defaults)
@@ -127,11 +126,11 @@
 
 				$httpBackend.expectPUT('/api/beers/7', $scope.beers[0]).respond(200);
 
-				$scope.updateBeer($scope.beers[0])
+				$scope.updateBeer($scope.beers[0]);
 
 				$httpBackend.flush();
 
-				expect($scope.beers[0].name).toBe("A new name");
+				expect($scope.beers[0].name).toBe('A new name');
 				expect($scope.beers[0]._id).toBe(7);
 				expect($scope.beers[0].editing).toBe(false);
 
@@ -168,7 +167,7 @@
 	__webpack_require__(3);
 	var angular = window.angular;
 
-	var beerApp = angular.module('beerApp', [] );
+	var beerApp = angular.module('beerApp', []);
 
 	__webpack_require__(4)(beerApp);
 
@@ -29217,10 +29216,10 @@
 
 			$scope.getAll = function() {
 				$http.get('/api/beers') //returns a promise
-					.then(function(res) { //success function first in this promise
-						$scope.beers = res.data;
-					}, function(err) { //err function 2nd in this promise
-						console.log(err.data);
+				.then(function(res) { //success function first in this promise
+					$scope.beers = res.data;
+				}, function(err) { //err function 2nd in this promise
+					console.log(err.data);
 				});
 			};
 
@@ -29229,34 +29228,31 @@
 				.then(function(res) {
 					$scope.beers.push(res.data);
 					$scope.newBeer =  null;
-					}, function(err) {
-					console.log(err)
-					}
-				);
-			}
+				}, function(err) {
+					console.log(err);
+				});
+			};
 
-		$scope.updateBeer = function(beer) {
+			$scope.updateBeer = function(beer) {
 				$http.put('/api/beers/' + beer._id, beer)
 				.then(function(res) {
 					beer.editing = false;
-					}, function(err) {
-					console.log(err)
+				}, function(err) {
+					console.log(err);
 					beer.editing = false;
-					}
-				);
-			}
+				});
+			};
 
 			$scope.deleteBeer = function(beer) { //assync UI
 				$scope.beers.splice($scope.beers.indexOf(beer), 1); // BEFORE the AJAX call
 				$http.delete('/api/beers/' + beer._id)
-					.then(function(res) {
-						//do nothing on success
-						}, function(err) {
-						$scope.getAll();
-						console.log(err)
-					}
-					);
-			}
+				.then(function(res) {
+					//do nothing on success
+				}, function(err) {
+					$scope.getAll();
+					console.log(err);
+				});
+			};
 
 			$scope.cancel = function(beer) {
 				beer.name = $scope.original.name;
@@ -29264,7 +29260,7 @@
 				beer.style =  $scope.original.style;
 				beer.notes = $scope.original.notes;
 				beer.editing = false;
-			}
+			};
 
 			$scope.edit = function(beer) {
 				$scope.original.name = beer.name;
@@ -29272,7 +29268,7 @@
 				$scope.original.style = beer.style;
 				$scope.original.notes = beer.notes;
 				beer.editing = true;
-			}
+			};
 
 		}]);
 	};

@@ -41,7 +41,8 @@ gulp.task('css:dev', function() {
 	gulp.src([
 		'app/css/base.css',
 		'app/css/layout.css',
-		'app/css/module.css'
+		'app/css/module.css',
+		'app/css/state.css'
 		])
 	.pipe(concatCss('style.min.css'))
 	.pipe(minifyCss())

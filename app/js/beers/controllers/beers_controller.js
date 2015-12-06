@@ -6,10 +6,10 @@ module.exports = function(app) {
 
 		$scope.getAll = function() {
 			$http.get('/api/beers') //returns a promise
-				.then(function(res) { //success function first in this promise
-					$scope.beers = res.data;
-				}, function(err) { //err function 2nd in this promise
-					console.log(err.data);
+			.then(function(res) { //success function first in this promise
+				$scope.beers = res.data;
+			}, function(err) { //err function 2nd in this promise
+				console.log(err.data);
 			});
 		};
 
@@ -18,34 +18,31 @@ module.exports = function(app) {
 			.then(function(res) {
 				$scope.beers.push(res.data);
 				$scope.newBeer =  null;
-				}, function(err) {
-				console.log(err)
-				}
-			);
-		}
+			}, function(err) {
+				console.log(err);
+			});
+		};
 
-	$scope.updateBeer = function(beer) {
+		$scope.updateBeer = function(beer) {
 			$http.put('/api/beers/' + beer._id, beer)
 			.then(function(res) {
 				beer.editing = false;
-				}, function(err) {
-				console.log(err)
+			}, function(err) {
+				console.log(err);
 				beer.editing = false;
-				}
-			);
-		}
+			});
+		};
 
 		$scope.deleteBeer = function(beer) { //assync UI
 			$scope.beers.splice($scope.beers.indexOf(beer), 1); // BEFORE the AJAX call
 			$http.delete('/api/beers/' + beer._id)
-				.then(function(res) {
-					//do nothing on success
-					}, function(err) {
-					$scope.getAll();
-					console.log(err)
-				}
-				);
-		}
+			.then(function(res) {
+				//do nothing on success
+			}, function(err) {
+				$scope.getAll();
+				console.log(err);
+			});
+		};
 
 		$scope.cancel = function(beer) {
 			beer.name = $scope.original.name;
@@ -53,7 +50,7 @@ module.exports = function(app) {
 			beer.style =  $scope.original.style;
 			beer.notes = $scope.original.notes;
 			beer.editing = false;
-		}
+		};
 
 		$scope.edit = function(beer) {
 			$scope.original.name = beer.name;
@@ -61,7 +58,7 @@ module.exports = function(app) {
 			$scope.original.style = beer.style;
 			$scope.original.notes = beer.notes;
 			beer.editing = true;
-		}
+		};
 
 	}]);
 };

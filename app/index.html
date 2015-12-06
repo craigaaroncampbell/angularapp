@@ -6,20 +6,40 @@
 	<link rel="stylesheet" href="style.min.css">
 </head>
 <body data-ng-app="beerApp">
-	<h1>Beers Everywhere</h1>
+	<h1>Beer Lister</h1>
 	<main data-ng-controller="BeersController" data-ng-init="getAll()">
-		<h1> Beer App </h1>
-		<form name="newBeerForm" data-ng-submit="createBeer(newBeer)">
-			<label for="beerName">New Beer Name:</label>
-			<input type="text" placeholder="name" id="beerName"required="required" data-ng-model="newBeer.name">
-			<label for="beerBrewery">Brewery:</label>
-			<input type="text" placeholder="brewery" id="beerBrewery" data-ng-model="newBeer.brewery">
-			<label for="beerStyle">Style:</label>
-			<input type="text" placeholder="style" id="beerStyle" data-ng-model="newBeer.style">
-			<label for="beerNotes">Notes:</label>
-			<input type="text" placeholder="tasting notes" id="beerNotes" data-ng-model="newBeer.notes">
-			<button type="submit" data-ng-disabled="newBeerForm.$invalid">List Another Beer</button>
-		</form>
+		<div id="about-organizer">
+			<form name="newBeerForm" data-ng-submit="createBeer(newBeer)">
+				<fieldset>
+					<legend>Add A New Beer!</legend>
+					<div>
+						<label for="beerName">Name:</label>
+						<input type="text" placeholder="name" id="beerName"required="required" data-ng-model="newBeer.name">
+					</div>
+					<div>
+						<label for="beerBrewery">Brewery:</label>
+						<input type="text" placeholder="brewery" id="beerBrewery" data-ng-model="newBeer.brewery">
+					</div>
+					<div>
+						<label for="beerStyle">Style:</label>
+						<input type="text" placeholder="style" id="beerStyle" data-ng-model="newBeer.style">
+					</div>
+					<div>
+						<label for="beerNotes">Notes:</label>
+						<input type="text" placeholder="tasting notes" id="beerNotes" data-ng-model="newBeer.notes">
+					</div>
+					<button type="submit" data-ng-disabled="newBeerForm.$invalid">List Another Beer</button>
+				</fieldset>
+			</form>
+			<section>
+				<h2>About This App</h2>
+				<p>
+					This app allows you to store info about some of your favorite beers. Also, heres some super-fun corporate ipsum just for kicks
+				</p>
+				<p>Enthusiastically brand interactive web-readiness rather than tactical potentialities. Professionally envisioneer scalable technology and proactive methodologies. Uniquely develop multifunctional mindshare vis-a-vis cross-unit processes. Uniquely disintermediate orthogonal processes through maintainable relationships. Uniquely architect resource sucking applications after bleeding-edge functionalities.
+				</p>
+			</section>
+		</div>
 		<table id="beertable">
 			<tr>
 				<th>Beer Name</th>
@@ -33,10 +53,10 @@
 				<td data-ng-if="!beer.editing">{{beer.style}}</td>
 				<td data-ng-if="!beer.editing">{{beer.notes}}</td>
 				<td class="button" data-ng-if="!beer.editing">
-					<button  data-ng-if="!beer.editing"  data-ng-click="edit(beer)">Edit Beer</button>
+					<button  data-ng-if="!beer.editing"  data-ng-click="edit(beer)">Edit</button>
 				</td>
 				<td class="button" data-ng-if="!beer.editing">
-					<button  data-ng-if="!beer.editing" data-ng-click="deleteBeer(beer)">Delete Beer</button>
+					<button  data-ng-if="!beer.editing" data-ng-click="deleteBeer(beer)">Delete</button>
 				</td>
 				<form data-ng-if="beer.editing" name="beerForm{{beer._id}}" data-ng-submit="updateBeer(beer)">
 					<label for="beerName{{beer._id}}"></label>
@@ -51,7 +71,7 @@
 						<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel</button>
 					</td>
 					<td class="button" data-ng-if="beer.editing" >
-						<button data-ng-if="beer.editing" data-ng-click="updateBeer(beer)" type="submit">Save Changes</button>
+						<button data-ng-if="beer.editing" data-ng-click="updateBeer(beer)" type="submit">Save</button>
 					</td>
 				</form>
 			</tr>

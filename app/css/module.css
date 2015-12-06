@@ -1,0 +1,23 @@
+html{
+	background: black;
+}
+
+body {
+	background: #21BFFF;
+
+}
+td {
+	color: #062ACC;
+}
+
+
+fieldset {
+	font-size: 0.75em;
+	color: #062ACC;
+}
+
+button, input{
+	border: none;
+}
+
+

@@ -48,8 +48,7 @@ describe('beers controller', function() {
 			var resdata = {name: 'test beer res', brewery: 'some brewery', style: 'stout', notes: 'none right now'};
 			$httpBackend.expectPOST('/api/beers', sentdata).respond(200, resdata);
 
-
-			$scope.newBeer =  sentdata//this is different than what is "sent back" because there is no server in this test. so we are mocking it, and I chose a differnet response to test that it is CLEARLY pushing what is "sent back" in to the beers "database" array
+			$scope.newBeer =  sentdata;  //this is different than what is "sent back" because there is no server in this test. so we are mocking it, and I chose a differnet response to test that it is CLEARLY pushing what is "sent back" in to the beers "database" array
 
 			expect($scope.beers.length).toBe(0);
 			// expect($scope.newBear).toEqual($scope.defaults)
@@ -74,11 +73,11 @@ describe('beers controller', function() {
 
 			$httpBackend.expectPUT('/api/beers/7', $scope.beers[0]).respond(200);
 
-			$scope.updateBeer($scope.beers[0])
+			$scope.updateBeer($scope.beers[0]);
 
 			$httpBackend.flush();
 
-			expect($scope.beers[0].name).toBe("A new name");
+			expect($scope.beers[0].name).toBe('A new name');
 			expect($scope.beers[0]._id).toBe(7);
 			expect($scope.beers[0].editing).toBe(false);
 

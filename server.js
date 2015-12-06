@@ -6,12 +6,11 @@ var nonAPIRouter = require(__dirname + '/routes/non_api_routes.js');
 var port = process.env.PORT || 3000;
 var mongoose = require('mongoose');
 var mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost/beer_dev';
-
 var tempAppSecret = 'ThisReallyNeedsToBeChanged';
 
-process.env.APP_SECRET = process.env.APP_SECRET || tempAppSecret ;
-
 mongoose.connect(mongoURI);
+
+process.env.APP_SECRET = process.env.APP_SECRET || tempAppSecret ;
 
 app.use('/' , nonAPIRouter);
 
