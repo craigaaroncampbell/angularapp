@@ -52,7 +52,7 @@ describe('beers controller', function() {
 
 			expect($scope.beers.length).toBe(0);
 			// expect($scope.newBear).toEqual($scope.defaults)
-			$scope.createBeer($scope.newBeer); // this is needed to CALL the function so tht the pushing into beers array actually happens
+			$scope.create($scope.newBeer); // this is needed to CALL the function so tht the pushing into beers array actually happens
 
 			$httpBackend.flush();
 			//these expects are for the pushing part of the create function
@@ -73,7 +73,7 @@ describe('beers controller', function() {
 
 			$httpBackend.expectPUT('/api/beers/7', $scope.beers[0]).respond(200);
 
-			$scope.updateBeer($scope.beers[0]);
+			$scope.update($scope.beers[0]);
 
 			$httpBackend.flush();
 
@@ -90,7 +90,7 @@ describe('beers controller', function() {
 
 			$httpBackend.expectDELETE('/api/beers/1').respond(200); //no data sent from server on successful delete
 
-			$scope.deleteBeer($scope.beers[0]);
+			$scope.delete($scope.beers[0]);
 
 			$httpBackend.flush();
 

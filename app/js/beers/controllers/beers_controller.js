@@ -1,47 +1,41 @@
 module.exports = function(app) {
-	app.controller('BeersController', ['$scope', '$http', function($scope, $http) {
+	app.controller('BeersController', ['$scope', '$http', 'beerResource', function($scope, $http, beerResource) {
 		$scope.beers = [];
 		$scope.newBeer =  null;
 		$scope.original = {};
+		var beersResource = beerResource('beers');
 
 		$scope.getAll = function() {
-			$http.get('/api/beers') //returns a promise
-			.then(function(res) { //success function first in this promise
-				$scope.beers = res.data;
-			}, function(err) { //err function 2nd in this promise
-				console.log(err.data);
+			beersResource.getAll(function(err, data) {
+				if (err) return err;
+				$scope.beers = data;
 			});
-		};
+		}
 
-		$scope.createBeer = function(beer) {
-			$http.post('/api/beers', beer)
-			.then(function(res) {
-				$scope.beers.push(res.data);
+		$scope.create = function(beer) {
+			beersResource.create(beer, function(err, data) {
+				if (err) return err;
+				$scope.beers.push(data);
 				$scope.newBeer =  null;
-			}, function(err) {
-				console.log(err);
-			});
+			})
 		};
 
-		$scope.updateBeer = function(beer) {
-			$http.put('/api/beers/' + beer._id, beer)
-			.then(function(res) {
+
+		$scope.update = function(beer) {
+			beersResource.update(beer, function(err, data) {
 				beer.editing = false;
-			}, function(err) {
-				console.log(err);
-				beer.editing = false;
-			});
+				if (err) return err;
+			})
 		};
 
-		$scope.deleteBeer = function(beer) { //assync UI
-			$scope.beers.splice($scope.beers.indexOf(beer), 1); // BEFORE the AJAX call
-			$http.delete('/api/beers/' + beer._id)
-			.then(function(res) {
-				//do nothing on success
-			}, function(err) {
-				$scope.getAll();
-				console.log(err);
-			});
+	$scope.delete = function(beer) {
+		$scope.beers.splice($scope.beers.indexOf(beer), 1);
+			beersResource.delete(beer, function(err, data) {
+				if (err) {
+					$scope.getAll();
+					return err;
+				}
+			})
 		};
 
 		$scope.cancel = function(beer) {

@@ -52,7 +52,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
-	__webpack_require__(6);
+	__webpack_require__(8);
 
 	describe('beers controller', function() {
 		var $httpBackend;
@@ -105,7 +105,7 @@
 
 				expect($scope.beers.length).toBe(0);
 				// expect($scope.newBear).toEqual($scope.defaults)
-				$scope.createBeer($scope.newBeer); // this is needed to CALL the function so tht the pushing into beers array actually happens
+				$scope.create($scope.newBeer); // this is needed to CALL the function so tht the pushing into beers array actually happens
 
 				$httpBackend.flush();
 				//these expects are for the pushing part of the create function
@@ -126,7 +126,7 @@
 
 				$httpBackend.expectPUT('/api/beers/7', $scope.beers[0]).respond(200);
 
-				$scope.updateBeer($scope.beers[0]);
+				$scope.update($scope.beers[0]);
 
 				$httpBackend.flush();
 
@@ -143,7 +143,7 @@
 
 				$httpBackend.expectDELETE('/api/beers/1').respond(200); //no data sent from server on successful delete
 
-				$scope.deleteBeer($scope.beers[0]);
+				$scope.delete($scope.beers[0]);
 
 				$httpBackend.flush();
 
@@ -29201,6 +29201,8 @@
 
 	module.exports = function(app) {
 		__webpack_require__(5)(app);
+		__webpack_require__(6)(app);
+		__webpack_require__(7)(app);
 	};
 
 
@@ -29209,50 +29211,65 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.controller('BeersController', ['$scope', '$http', function($scope, $http) {
+		app.controller('BeersController', ['$scope', '$http', 'beerResource', function($scope, $http, beerResource) {
 			$scope.beers = [];
 			$scope.newBeer =  null;
 			$scope.original = {};
+			var beersResource = beerResource('beers');
 
 			$scope.getAll = function() {
-				$http.get('/api/beers') //returns a promise
-				.then(function(res) { //success function first in this promise
-					$scope.beers = res.data;
-				}, function(err) { //err function 2nd in this promise
-					console.log(err.data);
+				beersResource.getAll(function(err, data) {
+					if (err) return err;
+					$scope.beers = data;
 				});
-			};
+			}
 
-			$scope.createBeer = function(beer) {
-				$http.post('/api/beers', beer)
-				.then(function(res) {
-					$scope.beers.push(res.data);
+			$scope.create = function(beer) {
+				beersResource.create(beer, function(err, data) {
+					if (err) return err;
+					$scope.beers.push(data);
 					$scope.newBeer =  null;
-				}, function(err) {
-					console.log(err);
-				});
+				})
 			};
 
-			$scope.updateBeer = function(beer) {
-				$http.put('/api/beers/' + beer._id, beer)
-				.then(function(res) {
+
+			$scope.update = function(beer) {
+				beersResource.update(beer, function(err, data) {
 					beer.editing = false;
-				}, function(err) {
-					console.log(err);
-					beer.editing = false;
-				});
+					if (err) return err;
+				})
 			};
 
-			$scope.deleteBeer = function(beer) { //assync UI
-				$scope.beers.splice($scope.beers.indexOf(beer), 1); // BEFORE the AJAX call
-				$http.delete('/api/beers/' + beer._id)
-				.then(function(res) {
-					//do nothing on success
-				}, function(err) {
-					$scope.getAll();
-					console.log(err);
-				});
+			// $scope.update = function(beer) {
+			// 	$http.put('/api/beers/' + beer._id, beer)
+			// 	.then(function(res) {
+			// 		beer.editing = false;
+			// 	}, function(err) {
+			// 		console.log(err);
+			// 		beer.editing = false;
+			// 	});
+			// };
+
+
+		$scope.delete = function(beer) {
+			$scope.beers.splice($scope.beers.indexOf(beer), 1);
+				beersResource.delete(beer, function(err, data) {
+					if (err) {
+						$scope.getAll();
+						return err;
+					}
+				})
 			};
+			// $scope.delete = function(beer) { //assync UI
+			// 	$scope.beers.splice($scope.beers.indexOf(beer), 1); // BEFORE the AJAX call
+			// 	$http.delete('/api/beers/' + beer._id)
+			// 	.then(function(res) {
+			// 		//do nothing on success
+			// 	}, function(err) {
+			// 		$scope.getAll();
+			// 		console.log(err);
+			// 	});
+			// };
 
 			$scope.cancel = function(beer) {
 				beer.name = $scope.original.name;
@@ -29276,6 +29293,62 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	var handleSuccess = function(callback) {
+		return function(res) {
+			callback(null, res.data);
+		};
+	};
+
+	var handleFail = function(callback) {
+		return function(res) {
+			callback(res.data);
+		};
+	};
+
+	module.exports = function(app) {
+		app.factory('beerResource', ['$http', function($http) {
+			return function(resourceName) {
+				var resource = {};
+
+				resource.getAll =  function(callback) {
+					$http.get('/api/' + resourceName)
+						.then(handleSuccess(callback), handleFail(callback));
+				};
+
+				resource.create = function(data, callback) {
+					$http.post('/api/' + resourceName, data)
+						.then(handleSuccess(callback), handleFail(callback));
+				};
+
+			 	resource.update = function(data, callback) {
+					$http.put('/api/' + resourceName + '/' +  data._id, data)
+						.then(handleSuccess(callback), handleFail(callback));
+				};
+
+				resource.delete = function(data, callback) {
+					$http.delete('/api/' + resourceName + '/' + data._id , data)
+						.then(handleSuccess(callback), handleFail(callback));
+				};
+
+				return resource;
+			};
+		}]);
+	};
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = function(app) {
+
+	};
+
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	/**

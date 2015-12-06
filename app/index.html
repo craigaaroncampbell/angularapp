@@ -9,7 +9,7 @@
 	<h1>Beer Lister</h1>
 	<main data-ng-controller="BeersController" data-ng-init="getAll()">
 		<div id="about-organizer">
-			<form name="newBeerForm" data-ng-submit="createBeer(newBeer)">
+			<form name="newBeerForm" data-ng-submit="create(newBeer)">
 				<fieldset>
 					<legend>Add A New Beer!</legend>
 					<div>
@@ -56,9 +56,9 @@
 					<button  data-ng-if="!beer.editing"  data-ng-click="edit(beer)">Edit</button>
 				</td>
 				<td class="button" data-ng-if="!beer.editing">
-					<button  data-ng-if="!beer.editing" data-ng-click="deleteBeer(beer)">Delete</button>
+					<button  data-ng-if="!beer.editing" data-ng-click="delete(beer)">Delete</button>
 				</td>
-				<form data-ng-if="beer.editing" name="beerForm{{beer._id}}" data-ng-submit="updateBeer(beer)">
+				<form data-ng-if="beer.editing" name="beerForm{{beer._id}}" data-ng-submit="update(beer)">
 					<label for="beerName{{beer._id}}"></label>
 						<td data-ng-if="beer.editing" ><input type="text" id="beerName{{beer._id}}" data-ng-model="beer.name"></td>
 					<label for="beerBrewery{{beer._id}}"></label>
@@ -71,7 +71,7 @@
 						<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel</button>
 					</td>
 					<td class="button" data-ng-if="beer.editing" >
-						<button data-ng-if="beer.editing" data-ng-click="updateBeer(beer)" type="submit">Save</button>
+						<button data-ng-if="beer.editing" data-ng-click="update(beer)" type="submit">Save</button>
 					</td>
 				</form>
 			</tr>
