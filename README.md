@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/craigaaroncampbell/authentication.svg?branch=master)](https://travis-ci.org/craigaaroncampbell/authentication)
 
+
+<strong>//////////////////////////////////////////////////////////
+Temporary note:  currently  Authorization is not needed. This functionality will be added back in later. Thus the eatAuth middleware has been commented out rather than deleted.
+//////////////////////////////////////////////////////////</strong>
+
 Note on authentication:  in order to do any CRUD on beers, you need to first singup or signin to get a token. This token must be sent with crud requests in order to add or modify beers.
 
 To sign up, use supearagent-cli.
