@@ -29222,32 +29222,31 @@
 					if (err) return err;
 					$scope.beers = data;
 				});
-			}
+			};
 
 			$scope.create = function(beer) {
 				beersResource.create(beer, function(err, data) {
 					if (err) return err;
 					$scope.beers.push(data);
 					$scope.newBeer =  null;
-				})
+				});
 			};
-
 
 			$scope.update = function(beer) {
 				beersResource.update(beer, function(err, data) {
 					beer.editing = false;
 					if (err) return err;
-				})
+				});
 			};
 
-		$scope.delete = function(beer) {
-			$scope.beers.splice($scope.beers.indexOf(beer), 1);
+			$scope.delete = function(beer) {
+				$scope.beers.splice($scope.beers.indexOf(beer), 1);
 				beersResource.delete(beer, function(err, data) {
 					if (err) {
 						$scope.getAll();
 						return err;
 					}
-				})
+				});
 			};
 
 			$scope.cancel = function(beer) {
@@ -29301,7 +29300,7 @@
 						.then(handleSuccess(callback), handleFail(callback));
 				};
 
-			 	resource.update = function(data, callback) {
+				resource.update = function(data, callback) {
 					$http.put('/api/' + resourceName + '/' +  data._id, data)
 						.then(handleSuccess(callback), handleFail(callback));
 				};
@@ -29325,10 +29324,10 @@
 		app.directive('beerforms', function() {
 			return {
 				templateUrl: 'templates/beerforms.html',
-				controller: "BeersController",
+				controller: 'BeersController',
 				replace: true
 			};
-		})
+		});
 	};
 
 

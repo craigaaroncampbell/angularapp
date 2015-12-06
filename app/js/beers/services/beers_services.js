@@ -25,7 +25,7 @@ module.exports = function(app) {
 					.then(handleSuccess(callback), handleFail(callback));
 			};
 
-		 	resource.update = function(data, callback) {
+			resource.update = function(data, callback) {
 				$http.put('/api/' + resourceName + '/' +  data._id, data)
 					.then(handleSuccess(callback), handleFail(callback));
 			};
