@@ -30,7 +30,9 @@
   },
   "devDependencies": {
     "angular": "^1.4.8",
+    "angular-cookies": "^1.4.8",
     "angular-mocks": "^1.4.8",
+    "angular-route": "^1.4.8",
     "chai": "^3.4.1",
     "chai-http": "^1.0.0",
     "gulp": "^3.9.0",
