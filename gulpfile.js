@@ -7,6 +7,8 @@ var webpack = require('webpack-stream');
 var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
 var Karma = require('karma').Server;
+var sass = require('gulp-sass');
+var maps = require('gulp-sourcemaps');
 
 gulp.task('default', ['lint', 'jscs', 'test', 'build:dev']);
 
@@ -37,20 +39,17 @@ gulp.task('webpack:dev', function() {
 	.pipe(gulp.dest('build/'));
 });
 
-gulp.task('css:dev', function() {
-	gulp.src([
-		'app/css/base.css',
-		'app/css/layout.css',
-		'app/css/module.css',
-		'app/css/state.css'
-		])
-	.pipe(concatCss('style.min.css'))
+gulp.task('sass:dev', function() {
+	gulp.src('./app/sass/**/*.scss')
+	.pipe(maps.init())
+	.pipe(sass().on('error', sass.logError))
 	.pipe(minifyCss())
+	.pipe(maps.write('./'))
 	.pipe(gulp.dest('build/'));
 });
 
-gulp.task('css:watch', function() {
-	gulp.watch('./app/css/**/*.css' , ['css:dev']);
+gulp.task('sass:watch', function() {
+	gulp.watch('./app/sass/**/*.scss', ['sass:dev']);
 });
 
 gulp.task('webpack:test', function() {
@@ -74,6 +73,6 @@ gulp.task('karmatests', ['webpack:test'], function(done) {
 	}, done).start();
 });
 
-gulp.task('build:dev', ['webpack:dev', 'static:dev', 'css:dev']);
+gulp.task('build:dev', ['webpack:dev', 'static:dev', 'sass:dev']);
 
 gulp.task('test', ['lint', 'servertests', 'karmatests']);
