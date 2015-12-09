@@ -5,17 +5,15 @@
 	}
 }
 
-// .gradientanchor{
-// 	height:10px;
-// 	background: none;
-// }
 
 .gradientbox:hover{
 	background: white;
 }
 
-// .gradientanchor:active{
-// 	background: black;
-// 	height:50px;
-// }
+.gradientbox:active{
+	background: black;
+}
 
+.gradientbox:visited{
+	background: black;
+}

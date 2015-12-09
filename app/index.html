@@ -15,17 +15,24 @@
 	</div>
 	<script src="/bundle.js"></script>
 		<script>
+
 		// yes, I DID put this in a scrip tag!
 		for (var i = 0; i < 256; i++) {
 			var newDiv = document.createElement("div");
 			newDiv.classList.add("box" + i);
 			newDiv.classList.add("gradientbox");
-  		// var newContent = document.createElement("a");
-  		// newContent.classList.add("gradientanchor");
-  		// newContent.setAttribute("href", "http://www.google.com");
-  		// newDiv.appendChild(newContent);
+  		var newAnchor = document.createElement("a");
+  		newAnchor.classList.add("gradientanchor");
+  		newAnchor.setAttribute("href", "#");
+  		newAnchor.setAttribute("id", "anchor" + i);
+  		newAnchor.appendChild(newDiv);
   		var currentDiv = document.getElementById("somediv");
-  		document.body.insertBefore(newDiv, currentDiv);
+  		document.body.insertBefore(newAnchor, currentDiv);
+  		document.getElementById('anchor' + i).addEventListener('click', stopDefAction, false);
+		}
+
+		  	function stopDefAction(evt) {
+    	evt.preventDefault();
 		}
 	</script>
 </body>
