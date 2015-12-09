@@ -1,20 +1,26 @@
 @for $i from 0 through 255 {
 	.box#{$i} {
-		background : #00ff00 - ($i * #000100 ) + ($i * #010000);
+		// background : #00ff00 - ($i * #000100 ) + ($i * #010000);
+			background : black + ($i * #000100);
 		height: 1px;
+		font-size:0px;
 	}
 }
 
 
 .gradientbox:hover{
-	background: white;
-	height: 1px;
+	color: white;
+	font-size: 40px;
+	border: 1px solid white;
+	height: 50px;
+	// background: white;
+	// height: 50px;
 }
 
-.gradientbox:active{
-	background: black;
-}
+// .gradientbox:active{
+// 	// background: black;
+// 	height: 50px;
+// 	border: 1px solid white;
+// }
 
-.gradientbox:visited{
-	background: black;
-}
+

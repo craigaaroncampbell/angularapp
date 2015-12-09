@@ -21,14 +21,20 @@
 			var newDiv = document.createElement("div");
 			newDiv.classList.add("box" + i);
 			newDiv.classList.add("gradientbox");
-  		var newAnchor = document.createElement("a");
-  		newAnchor.classList.add("gradientanchor");
-  		newAnchor.setAttribute("href", "#");
-  		newAnchor.setAttribute("id", "anchor" + i);
-  		newAnchor.appendChild(newDiv);
+  		// var newAnchor = document.createElement("a");
+  		// newAnchor.classList.add("gradientanchor");
+  		// newAnchor.setAttribute("href", "#");
+  		// newAnchor.setAttribute("id", "anchor" + i);
+  		// newAnchor.appendChild(newDiv);
   		var currentDiv = document.getElementById("somediv");
-  		document.body.insertBefore(newAnchor, currentDiv);
-  		document.getElementById('anchor' + i).addEventListener('click', stopDefAction, false);
+  		document.body.insertBefore(newDiv, currentDiv);
+  		// document.getElementById('anchor' + i).addEventListener('click', stopDefAction, false);
+  		var data = '#00' + i.toString(16) + '00';
+  		if (i < 16) {
+  			data = '#000' + i.toString(16) + '00';
+  		}
+  		var text = document.createTextNode(data);
+  		newDiv.appendChild(text);
 		}
 
 		  	function stopDefAction(evt) {
@@ -37,3 +43,5 @@
 	</script>
 </body>
 </html>
+
+

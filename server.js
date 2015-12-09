@@ -8,8 +8,10 @@ var mongoose = require('mongoose');
 var mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost/beer_dev';
 var tempAppSecret = 'ThisReallyNeedsToBeChanged';
 
-mongoose.connect(mongoURI);
 
+
+
+// mongoose.connect(mongoURI);
 process.env.APP_SECRET = process.env.APP_SECRET || tempAppSecret ;
 
 app.use('/' , nonAPIRouter);
