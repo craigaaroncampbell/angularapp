@@ -32,3 +32,8 @@ button, input{
 li {
   list-style: none;
 }
+
+footer {
+  text-align: center;
+  background: mixColors(red, blue);
+}

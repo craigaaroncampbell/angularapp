@@ -1,0 +1,21 @@
+@for $i from 0 through 255 {
+	.box#{$i} {
+		background : #00ff00 - ($i * #000100 ) + ($i * #010000);
+		height: 1px;
+	}
+}
+
+// .gradientanchor{
+// 	height:10px;
+// 	background: none;
+// }
+
+.gradientbox:hover{
+	background: white;
+}
+
+// .gradientanchor:active{
+// 	background: black;
+// 	height:50px;
+// }
+

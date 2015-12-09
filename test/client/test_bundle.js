@@ -30327,12 +30327,11 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.directive('beerforms', function() {
+		app.directive('beerForms', function() {
 			return {
-				// restrict: 'AC',
+				restrict: 'AC',
 				templateUrl: 'templates/beerforms.html',
 				controller: 'BeersController',
-				replace: true
 			};
 		});
 	};

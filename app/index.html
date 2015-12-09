@@ -3,11 +3,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>List You Some Beers</title>
+
 	<link rel="stylesheet" href="application.css">
 </head>
 <body data-ng-app="beerApp">
 	<h1>Beer Lister</h1>
 	<div data-beer-forms></div>
+	<div> LOOK AT MY REALLY COOL GRADIENT I MADE USING SCSS!</div>
+	<div id="somediv">
+		This is the some div.
+	</div>
 	<script src="/bundle.js"></script>
+		<script>
+		// yes, I DID put this in a scrip tag!
+		for (var i = 0; i < 256; i++) {
+			var newDiv = document.createElement("div");
+			newDiv.classList.add("box" + i);
+			newDiv.classList.add("gradientbox");
+  		// var newContent = document.createElement("a");
+  		// newContent.classList.add("gradientanchor");
+  		// newContent.setAttribute("href", "http://www.google.com");
+  		// newDiv.appendChild(newContent);
+  		var currentDiv = document.getElementById("somediv");
+  		document.body.insertBefore(newDiv, currentDiv);
+		}
+	</script>
 </body>
 </html>
