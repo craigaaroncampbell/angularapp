@@ -8,39 +8,9 @@
 </head>
 <body data-ng-app="beerApp">
 	<h1>Beer Lister</h1>
-	<div data-beer-forms></div>
-	<div> LOOK AT MY REALLY COOL GRADIENT I MADE USING SCSS!</div>
-	<div id="somediv">
-		This is the some div.
-	</div>
+	<main data-ng-view></main>
 	<script src="/bundle.js"></script>
-		<script>
-
-		// yes, I DID put this in a scrip tag!
-		for (var i = 0; i < 256; i++) {
-			var newDiv = document.createElement("div");
-			newDiv.classList.add("box" + i);
-			newDiv.classList.add("gradientbox");
-  		// var newAnchor = document.createElement("a");
-  		// newAnchor.classList.add("gradientanchor");
-  		// newAnchor.setAttribute("href", "#");
-  		// newAnchor.setAttribute("id", "anchor" + i);
-  		// newAnchor.appendChild(newDiv);
-  		var currentDiv = document.getElementById("somediv");
-  		document.body.insertBefore(newDiv, currentDiv);
-  		// document.getElementById('anchor' + i).addEventListener('click', stopDefAction, false);
-  		var data = '#00' + i.toString(16) + '00';
-  		if (i < 16) {
-  			data = '#000' + i.toString(16) + '00';
-  		}
-  		var text = document.createTextNode(data);
-  		newDiv.appendChild(text);
-		}
-
-		  	function stopDefAction(evt) {
-    	evt.preventDefault();
-		}
-	</script>
+ </script>
 </body>
 </html>
 

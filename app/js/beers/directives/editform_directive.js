@@ -1,8 +1,8 @@
 module.exports = function(app) {
-	app.directive('beerForms', function() {
+	app.directive('beerEditform', function() {
 		return {
 			restrict: 'AC',
-			templateUrl: 'templates/beerforms.html',
+			templateUrl: 'templates/beer_editform.html',
 			controller: 'BeersController',
 		};
 	});

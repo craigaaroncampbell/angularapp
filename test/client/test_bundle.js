@@ -45,6 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(13);
 
 
 /***/ },
@@ -52,7 +53,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
-	__webpack_require__(10);
+	__webpack_require__(12);
 
 	describe('beers controller', function() {
 		var $httpBackend;
@@ -171,6 +172,17 @@
 	var beerApp = angular.module('beerApp', ['ngRoute']);
 
 	__webpack_require__(6)(beerApp);
+
+	beerApp.config(['$routeProvider', function($route) {
+		$route
+		.when('/beers', {
+			templateUrl: '/templates/beers_view.html',
+			controller: 'BeersController'
+		})
+		.otherwise({
+			redirectTo: '/beers'
+		})
+	}]);
 
 
 /***/ },
@@ -30209,6 +30221,8 @@
 		__webpack_require__(7)(app);
 		__webpack_require__(8)(app);
 		__webpack_require__(9)(app);
+		__webpack_require__(10)(app);
+		__webpack_require__(11)(app);
 	};
 
 
@@ -30327,10 +30341,10 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.directive('beerForms', function() {
+		app.directive('beerAddform', function() {
 			return {
 				restrict: 'AC',
-				templateUrl: 'templates/beerforms.html',
+				templateUrl: 'templates/beer_addform.html',
 				controller: 'BeersController',
 			};
 		});
@@ -30339,6 +30353,37 @@
 
 /***/ },
 /* 10 */
+/***/ function(module, exports) {
+
+	module.exports = function(app) {
+		app.directive('beerEditform', function() {
+			return {
+				restrict: 'AC',
+				templateUrl: 'templates/beer_editform.html',
+				controller: 'BeersController',
+			};
+		});
+	};
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = function(app) {
+		app.directive('beerTransclusion', function() {
+			return {
+				restrict: 'AC',
+				transclude: true,
+				replace: true,
+				templateUrl: 'templates/transclusion_template.html'
+			};
+		});
+	};
+
+
+/***/ },
+/* 12 */
 /***/ function(module, exports) {
 
 	/**
@@ -32813,6 +32858,12 @@
 
 	})(window, window.angular);
 
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	
 
 /***/ }
 /******/ ]);
