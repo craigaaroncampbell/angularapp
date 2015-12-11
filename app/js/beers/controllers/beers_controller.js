@@ -1,9 +1,9 @@
 module.exports = function(app) {
-	app.controller('BeersController', ['$scope', '$http', 'beerResource', function($scope, $http, beerResource) {
+	app.controller('BeersController', ['$scope', '$http', 'someResource', function($scope, $http, someResource) {
 		$scope.beers = [];
 		$scope.newBeer =  null;
 		$scope.original = {};
-		var beersResource = beerResource('beers');
+		var beersResource = someResource('beers');
 
 		$scope.getAll = function() {
 			beersResource.getAll(function(err, data) {

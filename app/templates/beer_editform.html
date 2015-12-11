@@ -18,21 +18,23 @@
 			<button  data-ng-if="!beer.editing" data-ng-click="delete(beer)">Delete</button>
 		</span>
 
-		<form data-ng-if="beer.editing" name="beerForm{{beer._id}}" data-ng-submit="update(beer)">
-			<label for="beerName{{beer._id}}"></label>
-				<span data-ng-if="beer.editing" ><input type="text" id="beerName{{beer._id}}" data-ng-model="beer.name"></span>
-			<label for="beerBrewery{{beer._id}}"></label>
-			<span data-ng-if="beer.editing" ><input type="text" id="beerBrewery{{beer._id}}" data-ng-model="beer.brewery"></span>
-			<label for="beerStyle{{beer._id}}"></label>
-			<span data-ng-if="beer.editing" ><input type="text" id="beerStyle{{beer._id}}" data-ng-model="beer.style"></span>
-			<label for="beerNotes{{beer._id}}"></label>
-			<span data-ng-if="beer.editing" ><input type="text" id="beerNotes{{beer._id}}" data-ng-model="beer.notes"></span>
-				<span class="button" data-ng-if="beer.editing" >
-				<button data-ng-if="beer.editing" type="submit">Save</button>
-			</span>
-		</form>
-				<span class="button"  data-ng-if="beer.editing" >
+			<div data-beer-form></div>
+
 				<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel</button>
-			</span>
+
 	</div>
 </div>
+
+<!--
+		<form data-ng-if="beer.editing" name="beerForm{{beer._id}}" data-ng-submit="update(beer)">
+			<label for="beerName{{beer._id}}"></label>
+			<input data-ng-if="beer.editing" type="text" id="beerName{{beer._id}}" data-ng-model="beer.name">
+			<label for="beerBrewery{{beer._id}}"></label>
+			<input data-ng-if="beer.editing" type="text" id="beerBrewery{{beer._id}}" data-ng-model="beer.brewery">
+			<label for="beerStyle{{beer._id}}"></label>
+			<input data-ng-if="beer.editing" type="text" id="beerStyle{{beer._id}}" data-ng-model="beer.style">
+			<label for="beerNotes{{beer._id}}"></label>
+			<input data-ng-if="beer.editing" type="text" id="beerNotes{{beer._id}}" data-ng-model="beer.notes">
+			<button data-ng-if="beer.editing" type="submit">Save</button>
+
+		</form> -->

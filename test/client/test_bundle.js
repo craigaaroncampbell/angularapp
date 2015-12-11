@@ -181,7 +181,7 @@
 		})
 		.otherwise({
 			redirectTo: '/beers'
-		})
+		});
 	}]);
 
 
@@ -30231,11 +30231,11 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.controller('BeersController', ['$scope', '$http', 'beerResource', function($scope, $http, beerResource) {
+		app.controller('BeersController', ['$scope', '$http', 'someResource', function($scope, $http, someResource) {
 			$scope.beers = [];
 			$scope.newBeer =  null;
 			$scope.original = {};
-			var beersResource = beerResource('beers');
+			var beersResource = someResource('beers');
 
 			$scope.getAll = function() {
 				beersResource.getAll(function(err, data) {
@@ -30293,7 +30293,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	var handleSuccess = function(callback) {
+		var handleSuccess = function(callback) {
 		return function(res) {
 			callback(null, res.data);
 		};
@@ -30306,7 +30306,7 @@
 	};
 
 	module.exports = function(app) {
-		app.factory('beerResource', ['$http', function($http) {
+		app.factory('someResource', ['$http', function($http) {
 			return function(resourceName) {
 				var resource = {};
 
@@ -30341,11 +30341,19 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.directive('beerAddform', function() {
+		app.directive('beerForm', function() {
 			return {
 				restrict: 'AC',
-				templateUrl: 'templates/beer_addform.html',
+				replace: true,
+				transclude: true,
+				templateUrl: 'templates/beer_form.html',
 				controller: 'BeersController',
+				scope: {
+					buttonText: '@',
+					formName: '@',
+					beer: '=',
+					save: '&'
+				}
 			};
 		});
 	};
@@ -30356,11 +30364,11 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.directive('beerEditform', function() {
+		app.directive('repeatingStuff', function() {
 			return {
 				restrict: 'AC',
-				templateUrl: 'templates/beer_editform.html',
-				controller: 'BeersController',
+				templateUrl: 'templates/repeat_template.html',
+				controller: 'BeersController'
 			};
 		});
 	};
@@ -32863,7 +32871,25 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	
+	// require(__dirname + '/../../app/js/entry.js');
+	// require('angular-mocks');
+
+	// describe('beers service', function() {
+
+	// 	}));
+
+	// // IT SHOULD CREATE  SERVICE  (someResource)  that can be used in the controller
+
+	// //the service is a function that takes the NAME of asresource as a parameter  and returns that parameter OBJECT
+
+	// //the service also adds methods to that object (CRUD methods)
+
+	// 	it('should return a resource', function() {
+
+	// 	});
+
+	// });
+
 
 /***/ }
 /******/ ]);

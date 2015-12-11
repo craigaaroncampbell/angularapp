@@ -1,4 +1,4 @@
-var handleSuccess = function(callback) {
+	var handleSuccess = function(callback) {
 	return function(res) {
 		callback(null, res.data);
 	};
@@ -11,7 +11,7 @@ var handleFail = function(callback) {
 };
 
 module.exports = function(app) {
-	app.factory('beerResource', ['$http', function($http) {
+	app.factory('someResource', ['$http', function($http) {
 		return function(resourceName) {
 			var resource = {};
 

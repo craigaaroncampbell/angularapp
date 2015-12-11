@@ -1,13 +1,32 @@
 <section data-ng-init="getAll()">
-		<div id="about-organizer">
+	<div id="about-organizer">
 
-		<div data-beer-addform></div>
+		<div
+		data-beer-form
+		data-button-text="Add a new beer!"
+		data-form-name="newBeerForm"
+		data-beer="newBeer"
+		data-save="create(beer)"
+		></div>
+
 		<div data-beer-transclusion>
 				<p> Enthusiastically brand interactive web-readiness rather than tactical potentialities. Professionally envisioneer scalable technology and proactive methodologies. Uniquely develop multifunctional mindshare vis-a-vis cross-unit processes. Uniquely disintermediate orthogonal processes through maintainable relationships. Uniquely architect resource sucking applications after bleeding-edge functionalities.
 				</p>
 			</div>
-		</div>
+	</div>
 
-		<div data-beer-editform></div>
+	<div data-repeating-stuff></div>
 
-	</section>
+<!-- 	<div
+	data-beer-form
+	data-ng-if="beer.editing"
+	data-button-text="Save Changes"
+	data-form-name="edit{{beer._id}}"
+	data-beer="beer"
+	data-save="update(beer)"
+	>
+		<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel</button>
+	</div> -->
+
+
+</section>
