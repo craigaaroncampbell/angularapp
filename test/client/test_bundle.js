@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(15);
+	__webpack_require__(16);
 
 
 /***/ },
@@ -53,7 +53,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
-	__webpack_require__(14);
+	__webpack_require__(15);
 
 	describe('beers controller', function() {
 		var $httpBackend;
@@ -180,8 +180,16 @@
 			templateUrl: '/templates/beers_view.html',
 			controller: 'BeersController'
 		})
+		.when('/signup', {
+			templateUrl: 'templates/users/views/signupin_view.html',
+			controller: 'SignupController'
+		})
+		.when('/signin', {
+			templateUrl: 'templates/users/views/signupin_view.html',
+			controller: 'SigninController'
+		})
 		.otherwise({
-			redirectTo: '/beers'
+			redirectTo: '/signup'
 		});
 	}]);
 
@@ -30397,6 +30405,7 @@
 
 	module.exports = function(app) {
 		__webpack_require__(13)(app);
+		__webpack_require__(14)(app);
 	};
 
 
@@ -30405,19 +30414,31 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.controller('SignupController', ['$scope', '$http', function($scope, $http) {
+		app.controller('SignupController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 			$scope.buttonText = 'Create New User';
 			$scope.confirmPassword = true;
+			$scope.user = {};
+			$scope.changePlacesText = 'Or Sign Into An Existing User';
+			console.log($location.path());
 
 			$scope.passwordMatch = function(user) {
 				return user.password === user.confirmation;
 			};
 
-			$scope.createUser = function(user) {
+			// $scope.disableButton = function(user) {
+			// 	return ($scope.userForm.$invalid && !$scope.passwordMatch(user));
+			// };
+
+			$scope.changePlaces = function() {
+				$location.path('/signin');
+			};
+
+			$scope.sendToServer = function(user) {
 				$http.post('/api/signup', user)
 				.then(function(res) {
 					console.log(res.data);
 					//save token into cookie
+					$location.path('/beers');
 				}, function(err) {
 					console.log(err);
 				}
@@ -30429,6 +30450,17 @@
 
 /***/ },
 /* 14 */
+/***/ function(module, exports) {
+
+	module.exports = function(app) {
+		app.controller('SigninController', ['$scope', function($scope) {
+
+		}]);
+	};
+
+
+/***/ },
+/* 15 */
 /***/ function(module, exports) {
 
 	/**
@@ -32905,11 +32937,11 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
-	__webpack_require__(14);
+	__webpack_require__(15);
 
 	describe('beers service', function() {
 		var $ControllerConstructor;
@@ -32974,7 +33006,6 @@
 	// 		$scope = $rootScope.$new();
 	// 		$ControllerConstructor = $controller;
 	// 	}));
-
 
 	// 	it('should executed when there is an error', function() {
 	// 		var controller = new $ControllerConstructor('BeersController', {$scope: $scope});

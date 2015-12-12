@@ -1,0 +1,17 @@
+<section>
+	<h1>{{h1Text}}
+	<form name="userForm" data-ng-submit="sendToServer(user)">
+		<label for="signupName">User Name:</label>
+		<input required="required" type="text" id="signupName" data-ng-model="user.username">
+		<label for="signupPassword">Password:</label>
+		<input required="required"  type="password" id="signupPassword" data-ng-model="user.password">
+
+		<label data-ng-if="confirmPassword" for="passwordConfirm">Re-type Password:</label>
+
+		<input required="required"  data-ng-if="confirmPassword" type="password" id="passwordConfirm" data-ng-model="user.confirmation">
+		<p data-ng-if="!passwordMatch(user)"> Passwords do not match!</p>
+		<button type="submit" data-ng-disabled="userForm.$invalid || !passwordMatch(user)">{{buttonText}}</button>
+	</form>
+
+	<button data-ng-click="changePlaces()">{{$scope.changeLocationText}}</button>
+</section>

@@ -13,7 +13,15 @@ beerApp.config(['$routeProvider', function($route) {
 		templateUrl: '/templates/beers_view.html',
 		controller: 'BeersController'
 	})
+	.when('/signup', {
+		templateUrl: 'templates/users/views/signupin_view.html',
+		controller: 'SignupController'
+	})
+	.when('/signin', {
+		templateUrl: 'templates/users/views/signupin_view.html',
+		controller: 'SigninController'
+	})
 	.otherwise({
-		redirectTo: '/beers'
+		redirectTo: '/signup'
 	});
 }]);

@@ -65,7 +65,6 @@ describe('beers service', function() {
 // 		$ControllerConstructor = $controller;
 // 	}));
 
-
 // 	it('should executed when there is an error', function() {
 // 		var controller = new $ControllerConstructor('BeersController', {$scope: $scope});
 // 		var beer = {};

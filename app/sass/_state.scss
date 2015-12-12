@@ -14,3 +14,7 @@
 button:hover {
 	color: red;
 }
+
+button:disabled {
+	color: gray;
+}
