@@ -1,5 +1,5 @@
 <section>
-	<h1>{{h1Text}}
+	<h1>{{h1Text}}</h1>
 	<form name="userForm" data-ng-submit="sendToServer(user)">
 		<label for="signupName">User Name:</label>
 		<input required="required" type="text" id="signupName" data-ng-model="user.username">
@@ -8,10 +8,10 @@
 
 		<label data-ng-if="confirmPassword" for="passwordConfirm">Re-type Password:</label>
 
-		<input required="required"  data-ng-if="confirmPassword" type="password" id="passwordConfirm" data-ng-model="user.confirmation">
-		<p data-ng-if="!passwordMatch(user)"> Passwords do not match!</p>
-		<button type="submit" data-ng-disabled="userForm.$invalid || !passwordMatch(user)">{{buttonText}}</button>
+		<input data-ng-if="confirmPassword" required="required"  data-ng-if="confirmPassword" type="password" id="passwordConfirm" data-ng-model="user.confirmation">
+		<p data-ng-if="confirmPassword && !passwordMatch(user)"> Passwords do not match!</p>
+		<button type="submit" data-ng-disabled="userForm.$invalid || (confirmPassword &&!passwordMatch(user))">{{buttonText}}</button>
 	</form>
 
-	<button data-ng-click="changePlaces()">{{$scope.changeLocationText}}</button>
+	<button data-ng-click="changePlaces()">{{changePlacesText}}</button>
 </section>

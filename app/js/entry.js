@@ -1,8 +1,9 @@
 require('angular/angular');
 require('angular-route');
+require('angular-base64');
 var angular = window.angular;
 
-var beerApp = angular.module('beerApp', ['ngRoute']);
+var beerApp = angular.module('beerApp', ['ngRoute', 'base64']);
 
 require('./beers/beers.js')(beerApp);
 require('./users/users.js')(beerApp);
