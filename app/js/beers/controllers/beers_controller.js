@@ -3,17 +3,17 @@ module.exports = function(app) {
 		$scope.beers = [];
 		$scope.newBeer =  null;
 		$scope.original = {};
-		var beersResource = someResource('beers');
+		$scope.beersResource = someResource('beers');
 
 		$scope.getAll = function() {
-			beersResource.getAll(function(err, data) {
+			$scope.beersResource.getAll(function(err, data) {
 				if (err) return err;
 				$scope.beers = data;
 			});
 		};
 
 		$scope.create = function(beer) {
-			beersResource.create(beer, function(err, data) {
+			$scope.beersResource.create(beer, function(err, data) {
 				if (err) return err;
 				$scope.beers.push(data);
 				$scope.newBeer =  null;
@@ -21,7 +21,7 @@ module.exports = function(app) {
 		};
 
 		$scope.update = function(beer) {
-			beersResource.update(beer, function(err, data) {
+			$scope.beersResource.update(beer, function(err, data) {
 				beer.editing = false;
 				if (err) return err;
 			});
@@ -29,7 +29,7 @@ module.exports = function(app) {
 
 		$scope.delete = function(beer) {
 			$scope.beers.splice($scope.beers.indexOf(beer), 1);
-			beersResource.delete(beer, function(err, data) {
+			$scope.beersResource.delete(beer, function(err, data) {
 				if (err) {
 					$scope.getAll();
 					return err;

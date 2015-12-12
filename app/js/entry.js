@@ -5,6 +5,7 @@ var angular = window.angular;
 var beerApp = angular.module('beerApp', ['ngRoute']);
 
 require('./beers/beers.js')(beerApp);
+require('./users/users.js')(beerApp);
 
 beerApp.config(['$routeProvider', function($route) {
 	$route

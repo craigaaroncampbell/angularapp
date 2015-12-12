@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(13);
+	__webpack_require__(15);
 
 
 /***/ },
@@ -53,7 +53,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
-	__webpack_require__(12);
+	__webpack_require__(14);
 
 	describe('beers controller', function() {
 		var $httpBackend;
@@ -172,6 +172,7 @@
 	var beerApp = angular.module('beerApp', ['ngRoute']);
 
 	__webpack_require__(6)(beerApp);
+	__webpack_require__(12)(beerApp);
 
 	beerApp.config(['$routeProvider', function($route) {
 		$route
@@ -30235,17 +30236,17 @@
 			$scope.beers = [];
 			$scope.newBeer =  null;
 			$scope.original = {};
-			var beersResource = someResource('beers');
+			$scope.beersResource = someResource('beers');
 
 			$scope.getAll = function() {
-				beersResource.getAll(function(err, data) {
+				$scope.beersResource.getAll(function(err, data) {
 					if (err) return err;
 					$scope.beers = data;
 				});
 			};
 
 			$scope.create = function(beer) {
-				beersResource.create(beer, function(err, data) {
+				$scope.beersResource.create(beer, function(err, data) {
 					if (err) return err;
 					$scope.beers.push(data);
 					$scope.newBeer =  null;
@@ -30253,7 +30254,7 @@
 			};
 
 			$scope.update = function(beer) {
-				beersResource.update(beer, function(err, data) {
+				$scope.beersResource.update(beer, function(err, data) {
 					beer.editing = false;
 					if (err) return err;
 				});
@@ -30261,7 +30262,7 @@
 
 			$scope.delete = function(beer) {
 				$scope.beers.splice($scope.beers.indexOf(beer), 1);
-				beersResource.delete(beer, function(err, data) {
+				$scope.beersResource.delete(beer, function(err, data) {
 					if (err) {
 						$scope.getAll();
 						return err;
@@ -30293,7 +30294,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-		var handleSuccess = function(callback) {
+	var handleSuccess = function(callback) {
 		return function(res) {
 			callback(null, res.data);
 		};
@@ -30392,6 +30393,42 @@
 
 /***/ },
 /* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function(app) {
+		__webpack_require__(13)(app);
+	};
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = function(app) {
+		app.controller('SignupController', ['$scope', '$http', function($scope, $http) {
+			$scope.buttonText = 'Create New User';
+			$scope.confirmPassword = true;
+
+			$scope.passwordMatch = function(user) {
+				return user.password === user.confirmation;
+			};
+
+			$scope.createUser = function(user) {
+				$http.post('/api/signup', user)
+				.then(function(res) {
+					console.log(res.data);
+					//save token into cookie
+				}, function(err) {
+					console.log(err);
+				}
+			);
+			};
+		}]);
+	};
+
+
+/***/ },
+/* 14 */
 /***/ function(module, exports) {
 
 	/**
@@ -32868,24 +32905,89 @@
 
 
 /***/ },
-/* 13 */
-/***/ function(module, exports) {
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
 
-	// require(__dirname + '/../../app/js/entry.js');
-	// require('angular-mocks');
+	__webpack_require__(2);
+	__webpack_require__(14);
 
-	// describe('beers service', function() {
+	describe('beers service', function() {
+		var $ControllerConstructor;
+		var $scope;
 
+		beforeEach(angular.mock.module('beerApp'));
+
+		beforeEach(angular.mock.inject(function($rootScope, $controller) {
+			$scope = $rootScope.$new();
+			$ControllerConstructor = $controller;
+		}));
+
+		it('should return an resource object with CRUD methods', function() {
+			var controller = new $ControllerConstructor('BeersController', {$scope: $scope});
+			expect(typeof $scope.beersResource).toBe('object');
+		});
+
+	});
+
+	// describe('handleSuccess()', function() {
+	// 	var $ControllerConstructor;
+	// 	var $scope;
+
+	// 	beforeEach(angular.mock.module('beerApp'));
+
+	// 	beforeEach(angular.mock.inject(function($rootScope, $controller) {
+	// 		$scope = $rootScope.$new();
+	// 		$ControllerConstructor = $controller;
 	// 	}));
 
-	// // IT SHOULD CREATE  SERVICE  (someResource)  that can be used in the controller
+	// 	it('should executed when the request is successful', function() {
+	// var controller = new $ControllerConstructor('BeersController', {$scope: $scope});
+	// var beer = {name: "somebeer"}
+	// var err = new Error();
 
-	// //the service is a function that takes the NAME of asresource as a parameter  and returns that parameter OBJECT
+	// 		// call getAll with a successful request
+	// 		$scope.beersResource.getAll(function(err, data) {
+	// 				if (err) return err;
+	// 				$scope.beers = data;
+	// 			});
+	// 	// if no err then the res.data should be an array
+	// 			expect(Array.isArray($scope.beers)).toBe(true);
 
-	// //the service also adds methods to that object (CRUD methods)
+	// 		// PUT
+	// 			var called = $scope.beersResource.update(beer, function(err, data) {
+	// 				beer.editing = false;
+	// 				if (err) return err;
+	// 			});
 
-	// 	it('should return a resource', function() {
+	// 			// nothing should be returned  if there is no error, so the expression should be undefined
+	// 			expect(called).toBe(undefined);
+	// 	});
+	// });
 
+	// describe('handleFail()', function() {
+	// 	var $ControllerConstructor;
+	// 	var $scope;
+
+	// 	beforeEach(angular.mock.module('beerApp'));
+
+	// 	beforeEach(angular.mock.inject(function($rootScope, $controller) {
+	// 		$scope = $rootScope.$new();
+	// 		$ControllerConstructor = $controller;
+	// 	}));
+
+
+	// 	it('should executed when there is an error', function() {
+	// 		var controller = new $ControllerConstructor('BeersController', {$scope: $scope});
+	// 		var beer = {};
+	// 		var err = new Error();
+
+	// 		// call getAll with an error
+	// 		var called = $scope.beersResource.update(beer, function(err, data) {
+	// 				beer.editing = false;
+	// 				if (err) return err;
+
+	// 			});
+	// 			expect(called).toBe(err);
 	// 	});
 
 	// });
