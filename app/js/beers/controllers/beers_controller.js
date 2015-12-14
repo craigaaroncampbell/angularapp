@@ -6,7 +6,6 @@ module.exports = function(app) {
 		$scope.beersResource = someResource('beers');
 
 		$scope.getAll = function() {
-			console.log('getting: ', $cookies.get('token'));
 			$scope.beersResource.getAll(function(err, data) {
 				if (err) return err;
 				$scope.beers = data;

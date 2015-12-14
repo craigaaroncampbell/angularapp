@@ -68,6 +68,7 @@ describe('beer_routes', function() {
 	it('should be able to purchase (GET) all the beers', function(done) {
 		chai.request('localhost:3000')
 		.get('/api/beers')
+		.send({token: this.token})
 		.end(function(err, res) {
 			expect(err).to.eql(null);
 			expect(Array.isArray(res.body)).to.eql(true); // mongo sends arrays back so if it is an array then it presumably came from mongo

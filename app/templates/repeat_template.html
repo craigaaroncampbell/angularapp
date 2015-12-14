@@ -4,6 +4,7 @@
 		<span>Brewery</span>
 		<span>Style</span>
 		<span>Tasting Notes</span>
+		<span>Owner</span>
 	</div>
 
 	<div class="tablediv" data-ng-repeat="beer in beers">
@@ -11,6 +12,7 @@
 		<span data-ng-if="!beer.editing">{{beer.brewery}}</span>
 		<span data-ng-if="!beer.editing">{{beer.style}}</span>
 		<span data-ng-if="!beer.editing">{{beer.notes}}</span>
+		<span data-ng-if="!beer.editing">{{beer.owner}}</span>
 		<span class="button" data-ng-if="!beer.editing">
 			<button  data-ng-if="!beer.editing"  data-ng-click="edit(beer)">Edit</button>
 		</span>
@@ -18,7 +20,7 @@
 			<button  data-ng-if="!beer.editing" data-ng-click="delete(beer)">Delete</button>
 		</span>
 
-			<div
+		<div
 	data-beer-form
 	data-ng-if="beer.editing"
 	data-button-text="Save Changes"
@@ -27,9 +29,7 @@
 	data-save="update(beer)"
 	>
 		<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel</button>
-	</div>
-
-		<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel</button>
+		</div>
 
 	</div>
 </div>

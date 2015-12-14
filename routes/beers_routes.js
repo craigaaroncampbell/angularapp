@@ -5,22 +5,30 @@ var eatAuth = require(__dirname + '/../lib/eat_auth.js');
 var handleError = require(__dirname + '/../lib/handleErrors.js');
 var beersRouter = module.exports = exports = express.Router();
 
-beersRouter.get('/beers', function(req, res) {
+beersRouter.get('/allbeers', function(req, res) {
 	Beer.find({}, function(err, data) {
 		if (err) handleError(err, res);
 		res.send(data);
 	});
 });
 
-beersRouter.post('/beers', bodyParser.json(), /* eatAuth, */ function(req, res) {
+beersRouter.get('/beers', bodyParser.json(),  eatAuth, function(req, res) {
+	Beer.find({}, function(err, data) {
+		if (err) handleError(err, res);
+		res.send(data);
+	});
+});
+
+beersRouter.post('/beers', bodyParser.json(),  eatAuth,  function(req, res) {
 	var newBeer = new Beer(req.body);
+	newBeer.owner = req.user.username;
 	newBeer.save(function(err, data) {
 		if (err) handleError(err, res);
 		res.send(data);
 	});
 });
 
-beersRouter.put('/beers/:id', bodyParser.json(), /* eatAuth, */ function(req, res) {
+beersRouter.put('/beers/:id', bodyParser.json(),  eatAuth,  function(req, res) {
 	var beerData = req.body;
 	delete beerData._id;
 	Beer.update({_id: req.params.id}, beerData, function(err) {
@@ -29,7 +37,7 @@ beersRouter.put('/beers/:id', bodyParser.json(), /* eatAuth, */ function(req, re
 	});
 });
 
-beersRouter.delete('/beers/:id', /* bodyParser.json(), eatAuth, */ function(req, res) {
+beersRouter.delete('/beers/:id',  bodyParser.json(), eatAuth,  function(req, res) {
 	Beer.remove({_id: req.params.id}, function(err) {
 		if (err) return handleError(err, res);
 		res.send({msg: 'deleted!'});

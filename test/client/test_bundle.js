@@ -30749,7 +30749,7 @@
 /***/ function(module, exports) {
 
 	module.exports = function(app) {
-		app.controller('BeersController', ['$scope', '$http', 'someResource', function($scope, $http, someResource) {
+		app.controller('BeersController', ['$scope', '$http', 'someResource', '$base64', '$location', '$cookies', function($scope, $http, someResource, $base64, $location, $cookies) {
 			$scope.beers = [];
 			$scope.newBeer =  null;
 			$scope.original = {};
@@ -30824,26 +30824,30 @@
 	};
 
 	module.exports = function(app) {
-		app.factory('someResource', ['$http', function($http) {
+		app.factory('someResource', ['$http', '$cookies', function($http, $cookies) {
 			return function(resourceName) {
 				var resource = {};
 
 				resource.getAll =  function(callback) {
+					$http.defaults.headers.get = {'token': $cookies.get('token')};
 					$http.get('/api/' + resourceName)
 						.then(handleSuccess(callback), handleFail(callback));
 				};
 
 				resource.create = function(data, callback) {
+					$http.defaults.headers.post.token = $cookies.get('token');
 					$http.post('/api/' + resourceName, data)
 						.then(handleSuccess(callback), handleFail(callback));
 				};
 
 				resource.update = function(data, callback) {
+					$http.defaults.headers.put.token = $cookies.get('token');
 					$http.put('/api/' + resourceName + '/' +  data._id, data)
 						.then(handleSuccess(callback), handleFail(callback));
 				};
 
 				resource.delete = function(data, callback) {
+					$http.defaults.headers.delete = {'token': $cookies.get('token')};
 					$http.delete('/api/' + resourceName + '/' + data._id , data)
 						.then(handleSuccess(callback), handleFail(callback));
 				};
@@ -30945,8 +30949,8 @@
 			$scope.sendToServer = function(user) {
 				$http.post('/api/signup', user)
 				.then(function(res) {
-					console.log(res.data);
-					$cookies.put('eat', res.data);
+					console.log(res.data.token);
+					$cookies.put('token', res.data.token);
 					$location.path('/beers');
 				}, function(err) {
 					console.log(err);
@@ -30980,8 +30984,8 @@
 					}
 				})
 				.then(function(res) {
-					console.log(res.token);
-					$cookies.put('eat', res.data);
+					console.log(res.data.token);
+					$cookies.put('token', res.data.token);
 					$location.path('/beers');
 				}, function(err) {
 					console.log(err);
