@@ -20,6 +20,7 @@ usersRouter.post('/signup', bodyParser.json(), function(req, res) {
 	User.findOne({'username': req.body.username}, function(err, data) {
 		if (err) return handleError(err, res);
 		if (data && data.basic.username === req.body.username) {
+			res.send({nameTaken: true})
 			return console.log('THAT USER IS ALREADY IN THE DATABASE'); // prevent newUser emission if the username is already in the db. NOTHING FURTHER SHOULD HAPPEN WITH THIS REQUEST.
 		}
 		postEmitter.emit('newUser', req, res); //only if user not in db aleady
@@ -50,7 +51,7 @@ postEmitter.on('two', function(newUser, req, res) {
 postEmitter.on('three', function(newUser, req, res) {
 	newUser.generateToken(function(err, token) {
 		if (err) return handleError(err, res);
-		res.json({token: token});
+		res.json({nameTaken: false, token: token});
 	});
 });
 
@@ -76,8 +77,8 @@ getEmitter.on('two', function(req, res, user) {
 		// this is really just bcrypt.compare() so comparrison is from bcrypt and is either "true" or "false" - did the password input match the data decrypted from the hash?
 		if (err) handleError(err, res);
 		if (comparrison === false) {
-			console.log('Could not authinticate: ' + req.auth.username);
-			return res.status(401).json({msg: 'Nope!'});
+			console.log('Could not authenticate: ' + req.auth.username);
+			return res.status(401).json({wrongPassword: true, msg: 'Nope!'});
 		}
 		getEmitter.emit('three', req, res, user);
 	});
@@ -86,6 +87,6 @@ getEmitter.on('two', function(req, res, user) {
 getEmitter.on('three', function(req, res, user) {
 	user.generateToken(function(err, token) {
 		if (err) return handleError(err, res);
-		res.json({token: token});
+		res.json({wrongPassword: false, token: token});
 	});
 });

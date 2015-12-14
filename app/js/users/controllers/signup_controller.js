@@ -2,6 +2,7 @@ module.exports = function(app) {
 	app.controller('SignupController', ['$scope', '$http', '$location', '$cookies', function($scope, $http, $location, $cookies) {
 		$scope.buttonText = 'Create New User';
 		$scope.confirmPassword = true;
+		$scope.nameTaken = false;
 		$scope.user = {};
 		$scope.changePlacesText = 'Or Sign Into An Existing User';
 		console.log($location.path());
@@ -10,10 +11,6 @@ module.exports = function(app) {
 			return user.password === user.confirmation;
 		};
 
-		// $scope.disableButton = function(user) {
-		// 	return ($scope.userForm.$invalid && !$scope.passwordMatch(user));
-		// };
-
 		$scope.changePlaces = function() {
 			$location.path('/signin');
 		};
@@ -21,9 +18,11 @@ module.exports = function(app) {
 		$scope.sendToServer = function(user) {
 			$http.post('/api/signup', user)
 			.then(function(res) {
+				console.log(res.data.nameTaken);
+				$scope.nameTaken = res.data.nameTaken;
 				console.log(res.data.token);
 				$cookies.put('token', res.data.token);
-				$location.path('/beers');
+				if ($scope.nameTaken === false) $location.path('/beers');
 			}, function(err) {
 				console.log(err);
 			})	;
