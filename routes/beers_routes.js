@@ -13,7 +13,7 @@ beersRouter.get('/allbeers', function(req, res) {
 });
 
 beersRouter.get('/beers', bodyParser.json(),  eatAuth, function(req, res) {
-	Beer.find({}, function(err, data) {
+	Beer.find({owner: req.user.username}, function(err, data) {
 		if (err) handleError(err, res);
 		res.send(data);
 	});
