@@ -1,9 +1,10 @@
 require('angular/angular');
 require('angular-route');
 require('angular-base64');
+// require('angular-cookies');
 var angular = window.angular;
 
-var beerApp = angular.module('beerApp', ['ngRoute', 'base64']);
+var beerApp = angular.module('beerApp', ['ngRoute', 'base64', require('angular-cookies')]);
 
 require('./beers/beers.js')(beerApp);
 require('./users/users.js')(beerApp);

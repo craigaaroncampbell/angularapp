@@ -1,11 +1,12 @@
 module.exports = function(app) {
-	app.controller('BeersController', ['$scope', '$http', 'someResource', function($scope, $http, someResource) {
+	app.controller('BeersController', ['$scope', '$http', 'someResource', '$base64', '$location', '$cookies', function($scope, $http, someResource, $base64, $location, $cookies) {
 		$scope.beers = [];
 		$scope.newBeer =  null;
 		$scope.original = {};
 		$scope.beersResource = someResource('beers');
 
 		$scope.getAll = function() {
+			console.log('getting: ', $cookies.get('token'));
 			$scope.beersResource.getAll(function(err, data) {
 				if (err) return err;
 				$scope.beers = data;

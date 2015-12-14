@@ -1,5 +1,5 @@
 module.exports = function(app) {
-	app.controller('SigninController', ['$scope', '$http', '$base64', '$location', function($scope, $http, $base64, $location) {
+	app.controller('SigninController', ['$scope', '$http', '$base64', '$location', '$cookies', function($scope, $http, $base64, $location, $cookies) {
 		$scope.buttonText = 'Log In';
 		$scope.confirmPassword = false;
 		$scope.user = {};
@@ -18,8 +18,8 @@ module.exports = function(app) {
 				}
 			})
 			.then(function(res) {
-				console.log(res);
-				//is this where cookie goes in???
+				console.log(res.data.token);
+				$cookies.put('token', res.data.token);
 				$location.path('/beers');
 			}, function(err) {
 				console.log(err);
