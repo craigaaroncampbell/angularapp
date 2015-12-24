@@ -1,0 +1,20 @@
+	<form name="{{formName}}" data-ng-submit="save({beer: beer})">
+
+	<label for="beerName">Name:</label>
+	<input type="text" required="required" placeholder="name" id="beerName" data-ng-model="beer.name">
+
+	<label for="beerBrewery">Brewery:</label>
+	<input type="text" placeholder="brewery" id="beerBrewery" data-ng-model="beer.brewery">
+
+	<label for="beerStyle">Style:</label>
+	<input type="text" placeholder="style" id="beerStyle" data-ng-model="beer.style">
+
+	<label for="beerNotes">Notes:</label>
+	<input type="text" placeholder="tasting notes" id="beerNotes" data-ng-model="beer.notes">
+
+	<button data-ng-disabled="{{formName}}.$invalid" type="submit">{{buttonText}}</button>
+
+	<!-- for adding optional button (i.e. cancel for edit form)  -->
+	<ng-transclude></ng-transclude>
+
+</form>

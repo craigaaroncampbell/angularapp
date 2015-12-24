@@ -1,0 +1,9 @@
+@mixin margin-and-padding($margin, $padding) {
+	padding: $margin;
+	margin: $padding;
+}
+
+@mixin list-heading($color, $font-weight) {
+	color: $color;
+	font-weight: $font-weight;
+}

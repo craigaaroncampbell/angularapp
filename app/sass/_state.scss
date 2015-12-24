@@ -1,0 +1,20 @@
+/* Change size of text when screen gets smaller */
+@media all and (min-width: 550px) and (max-width: 800px) {
+	body {
+	font-size: 0.75em;
+	}
+}
+
+@media all and (min-width: 320px) and (max-width: 550px) {
+	body {
+	font-size: 0.5em;
+	}
+}
+
+button:hover {
+	color: red;
+}
+
+button:disabled {
+	color: gray;
+}

@@ -1,0 +1,33 @@
+<div id="beerlist">
+	<div class="tablediv" id="beerlist-headings">
+		<span>Beer Name</span>
+		<span>Brewery</span>
+		<span>Style</span>
+		<span>Tasting Notes</span>
+	</div>
+
+	<div class="tablediv" data-ng-repeat="beer in beers">
+		<span data-ng-if="!beer.editing">{{beer.name}}</span>
+		<span data-ng-if="!beer.editing">{{beer.brewery}}</span>
+		<span data-ng-if="!beer.editing">{{beer.style}}</span>
+		<span data-ng-if="!beer.editing">{{beer.notes}}</span>
+		<span class="button" data-ng-if="!beer.editing">
+			<button  data-ng-if="!beer.editing"  data-ng-click="edit(beer)">Edit</button>
+		</span>
+		<span class="button" data-ng-if="!beer.editing">
+			<button  data-ng-if="!beer.editing" data-ng-click="delete(beer)">Delete</button>
+		</span>
+
+		<div
+	data-beer-form
+	data-ng-if="beer.editing"
+	data-button-text="Save Changes"
+	data-form-name="edit{{beer._id}}"
+	data-beer="beer"
+	data-save="update(beer)"
+	>
+		<button data-ng-if="beer.editing" data-ng-click="cancel(beer)">Cancel</button>
+		</div>
+
+	</div>
+</div>

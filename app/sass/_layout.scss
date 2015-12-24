@@ -1,0 +1,48 @@
+body {
+	padding: 2%;
+}
+
+.tablediv {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+}
+
+li {
+	margin-top: 1%;
+	span {
+		padding-left: 10px;
+		input {
+			width: 10%;
+		}
+		.button {
+			padding: 1px;
+		}
+	}
+}
+
+#about-organizer {
+	display: flex;
+	justify-content: flex-start;
+	form {
+		display: flex;
+		align-content: center;
+		flex-direction: column;
+		margin-top: 5px;
+		button {
+			margin-top: 5px;
+		}
+	}
+
+	h2 {
+		@include margin-and-padding(0, 0);
+	}
+
+	p {
+		@include margin-and-padding(0, 0);
+	}
+}
+
+
+
+
