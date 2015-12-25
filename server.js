@@ -7,12 +7,15 @@ var authenticat = new Authenticat(connection);
 var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 
+var mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost/beer_dev';
+
+mongoose.connect(mongoURI); // for non-users resources that use mongoose methods rather than mongo straight-up
+
 app.use('/api', authenticat.router);
 
 app.get('/someroute', bodyParser.json(), authenticat.tokenAuth, authenticat.roleAuth(),function(req, res) {
   res.json({something: "yaay"});
 });
-
 
 var beersRouter = require(__dirname + '/routes/beers_routes.js');
 

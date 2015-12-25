@@ -15,7 +15,6 @@ module.exports = function(app) {
 		$scope.create = function(beer) {
 			$scope.beersResource.create(beer, function(err, data) {
 				if (err) return err;
-				// console.log("data999 ", data)
 				$scope.beers.push(data);
 				$scope.newBeer =  null;
 			});

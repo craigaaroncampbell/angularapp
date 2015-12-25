@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var connection = mongoose.createConnection('mongodb://localhost/test_authenticat');
 var authenticat = new Authenticat(connection);
 
-
 var Beer = require(__dirname + '/../models/beer.js');
 var handleError = require(__dirname + '/../lib/handleErrors.js');
 var beersRouter = module.exports = exports = express.Router();
@@ -18,9 +17,7 @@ beersRouter.get('/allbeers', function(req, res) {
 });
 
 beersRouter.get('/beers', bodyParser.json(), authenticat.tokenAuth, function(req, res) {
-	console.log("before", req.user.username)
 	Beer.find({owner: req.user.username}, function(err, data) {
-		console.log("after")
 		if (err) handleError(err, res);
 		res.send(data);
 	});
@@ -52,7 +49,6 @@ beersRouter.delete('/beers/:id',  bodyParser.json(), authenticat.tokenAuth, func
 });
 
 beersRouter.get('/beers/:brewery', function(req, res) {
-	/// get route that that will search the DB  by brewery name, and pull up all the beers for that brewery
 	Beer.find({brewery: req.params.brewery}, function(err, data) {
 		if (err) return handleError(err, res);
 		res.send(data);
