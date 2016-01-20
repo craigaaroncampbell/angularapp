@@ -30946,14 +30946,13 @@
 			$scope.sendToServer = function(user) {
 				$http.post('/api/signup', user)
 				.then(function(res) {
-					console.log(res.data.nameTaken);
-					$scope.nameTaken = res.data.nameTaken;
-					console.log(res.data.token);
 					$cookies.put('token', res.data.token);
-					if ($scope.nameTaken === false) $location.path('/beers');
+					$location.path('/beers');
+
 				}, function(err) {
+					$scope.nameTaken = err.data.nameTaken;
 					console.log(err);
-				})	;
+				});
 			};
 		}]);
 	};

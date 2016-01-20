@@ -2,7 +2,7 @@
 	<h1>{{h1Text}}</h1>
 	<form name="userForm" data-ng-submit="sendToServer(user)">
 		<p class="warning" data-ng-if="nameTaken"> Username has been taken. Try another one!</p>
-		<p class="warning" data-ng-if="wrongPassword"> That was not the correct password.</p>
+		<p class="warning" data-ng-if="wrongPassword"> That was not the correct password or username.</p>
 		<label for="signupName">User Name:</label>
 		<input required="required" type="text" id="signupName" data-ng-model="user.username">
 		<label for="signupPassword">Password:</label>
