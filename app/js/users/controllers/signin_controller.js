@@ -20,12 +20,12 @@ module.exports = function(app) {
 			})
 			.then(function(res) {
 				console.log(res.data.token);
-				$scope.wrongPassword = res.data.wrongPassOrUser;
+				// $scope.wrongPassword = res.data.wrongPassOrUser;
 				$cookies.put('token', res.data.token);
 				$location.path('/beers');
 			}, function(err) {
 				console.log(err);
-				$scope.wrongPassword = err.data.wrongPassOrUser;
+				$scope.wrongPassOrUser = err.data.wrongPassOrUser;
 			});
 		};
 	}]);
