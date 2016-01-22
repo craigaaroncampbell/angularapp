@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/craigaaroncampbell/authentication.svg?branch=master)](https://travis-ci.org/craigaaroncampbell/authentication)
-
+[![Build Status](https://travis-ci.org/craigaaroncampbell/angularapp.svg?branch=master)](https://travis-ci.org/craigaaroncampbell/angularapp)
 Note: mongod must be running in order for this app to work! In one terminal, use ```mongod --dbpath=./db --smallfiles```  where db is the name of a directory in your app's root directory.  This is essential as it starts mongo and tells it where to store/reteive/edit/delete data from.
 
 This app stores user posts of differnt beers in a mongo database. This is done by making a POST request to ```/api/beers```. For example, using Superagent-CLI: ```superagent localhost:3000/api/beers post '{"name":"Leafer Madness","brewery":"Beer Valley","style":"double IPA","notes":"very tasty"}'```
