@@ -2,7 +2,7 @@ module.exports = function(app) {
 	app.controller('SigninController', ['$scope', '$http', '$base64', '$location', '$cookies', function($scope, $http, $base64, $location, $cookies) {
 		$scope.buttonText = 'Log In';
 		$scope.confirmPassword = false;
-		$scope.wrongPassword = false;
+		$scope.wrongPassOrUser = false;
 		$scope.user = {};
 		$scope.changePlacesText = 'Or Create A New User';
 
@@ -20,12 +20,12 @@ module.exports = function(app) {
 			})
 			.then(function(res) {
 				console.log(res.data.token);
-				$scope.wrongPassword = res.data.wrongPassword;
+				// $scope.wrongPassword = res.data.wrongPassOrUser;
 				$cookies.put('token', res.data.token);
 				$location.path('/beers');
 			}, function(err) {
 				console.log(err);
-				$scope.wrongPassword = err.data.wrongPassword;
+				$scope.wrongPassOrUser = err.data.wrongPassOrUser;
 			});
 		};
 	}]);
